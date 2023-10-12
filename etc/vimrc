@@ -21,6 +21,9 @@ set number
 set relativenumber
 set cot-=preview
 
+" make Esc the shortcut to normal mode while in terminal:
+tnoremap <Esc> <C-w>N
+
 " Commenting blocks of code:
 augroup commenting_blocks_of_code
 	autocmd!
