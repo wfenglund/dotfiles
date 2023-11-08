@@ -55,6 +55,10 @@ function erlrun
 	erl -noshell -s $argv start -s init stop
 end
 
+function OnlineBlaster
+	Rscript ~/.config_scripts/webBlast.r $argv
+end
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
