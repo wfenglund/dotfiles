@@ -1,2 +1,3 @@
 xchainkeys &
 setxkbmap -option caps:ctrl_modifier
+/bin/bash ~/.config_scripts/bgsetter.sh &
