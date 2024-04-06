@@ -13,6 +13,7 @@ alias erlh="erl -config ~/.config/erlang/erlang.config"
 alias untar="tar -xvf"
 alias lah="ls -lah"
 alias nocaps="setxkbmap -option caps:ctrl_modifier" # Change caps lock into ctrl
+alias rebar3="~/rebar3/rebar3"
 
 ## Monitor aliases:
 alias 3screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 1920x60 --rotate normal --output HDMI-A-0 --mode 1920x1200 --pos 0x260 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --mode 1920x1080 --pos 4160x380 --rotate normal --output DisplayPort-3 --off"
