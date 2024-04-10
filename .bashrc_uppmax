@@ -152,6 +152,18 @@ mktar ()
   fi
 }
 
+lcratch () # list scratch discs of all running projects
+{
+	readarray -t scr_list < <(jobinfo -u willeng | grep " R " | awk '{print $11 " ls -lah /scratch/" $1}')
+	declare -p scr_list > /dev/null
+	for i in "${scr_list[@]}"
+	do
+		echo "${i##* }:"
+		ssh $i
+		echo ""
+	done
+}
+
 awsout ()
 {
   outslurm | grep remaining | tail -1
