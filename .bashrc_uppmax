@@ -1,9 +1,5 @@
 # .bashrc, rename file to '.bashrc' so that bash can find it
 
-# Set history length:
-HISTSIZE=100000
-HISTFILESIZE=100000
-
 # Modules, activate the module command
 case "$0" in
           -sh|sh|*/sh)	modules_shell=sh ;;
@@ -13,28 +9,62 @@ case "$0" in
 esac
 module() { eval `/usr/local/Modules/$MODULE_VERSION/bin/modulecmd $modules_shell $*`; }
 
-# User specific aliases and functions
+#############################
+### CUSTOM SETTINGS START ###
+#############################
 
+# Modules:
 module load vim
 
+# Set history length:
+HISTSIZE=100000
+HISTFILESIZE=100000
+
+# Aliases:
+alias gnmkit="module load bioinfo-tools samtools vcftools bcftools MultiQC"
+alias mdl="module load"
+alias mds="module spider"
+alias la="ls -a"
+alias stpr="source set_variables.sh"
+alias bashedit="vim ~/.bashrc"
+
+## Project aliases:
+alias hdata="cd /proj/snic2021-23-233/"
+alias hcomp="cd /proj/snic2021-22-227/"
 alias cgi="cd /proj/snic2022-22-78/william_analysis/"
 alias 2cgi="cd /proj/naiss2023-23-140/william_analysis/"
 alias porps="cd /proj/naiss2023-23-507/nobackup/tumlare"
 alias efras="cd /proj/naiss2023-23-140/william_analysis/468_2022_euphrasia"
 alias nuff="cd /proj/naiss2023-23-140/william_analysis/476_Nuphar"
 alias dwnld="cd /proj/naiss2023-23-507/william_analysis/downloads"
-alias gnmkit="module load bioinfo-tools samtools vcftools bcftools MultiQC"
-alias mdl="module load"
-alias mds="module spider"
-#alias lah="ls -lah"
-alias la="ls -a"
-alias stpr="source set_variables.sh"
-alias bashedit="vim ~/.bashrc"
 
-alias hdata="cd /proj/snic2021-23-233/"
-alias hcomp="cd /proj/snic2021-22-227/"
+# Functions:
+roller ()
+{
+for i in {0..1200}; do
+	lines=$($1 | wc -l)
+	$1 | head -n${lines}   # print `$lines` lines
+	sleep 2
+	echo -e "\e[$((${lines}+1))A"     # go `$lines + 1` up
+done
+}
 
-# Colors:
+statflag ()
+{
+  grep -E -T --color=always "[0-9]+ \+ [0-9]+ mapped" *flagstat.txt
+}
+
+lah ()
+{
+  ls -lah $1
+}
+
+nrmupload ()
+{
+  bash ~/upload_to_nextcloud/cloudsend.sh "$1" "https://nrmcloud.nrm.se/s/EbanzwdawgBM3ES"
+}
+
+## Colors:
 white()
 {
   echo -e "\e[0m"
@@ -50,7 +80,7 @@ gray()
   echo -e "\e[32m"
 }
 
-# Slurm functions:
+## Slurm functions:
 rjb ()
 {
   echo -e "\e[4mRunning:\e[0m\e[32m";
@@ -68,30 +98,10 @@ outslurm ()
   ls | grep "slurm" | tail -$var1 | head -1 | xargs cat
 }
 
-roller ()
-{
-for i in {0..1200}; do
-	lines=$($1 | wc -l)
-	$1 | head -n${lines}   # print `$lines` lines
-	sleep 2
-	echo -e "\e[$((${lines}+1))A"     # go `$lines + 1` up
-done
-}
-
 interact ()
 {
   interactive -A naiss2023-22-16 -t 0:15:00;
   gnmkit
-}
-
-statflag ()
-{
-  grep -E -T --color=always "[0-9]+ \+ [0-9]+ mapped" *flagstat.txt
-}
-
-lah ()
-{
-  ls -lah $1
 }
 
 mkblast ()
@@ -169,11 +179,9 @@ awsout ()
   outslurm | grep remaining | tail -1
 }
 
-# Other functions:
-nrmupload ()
-{
-	bash ~/upload_to_nextcloud/cloudsend.sh "$1" "https://nrmcloud.nrm.se/s/EbanzwdawgBM3ES"
-}
+############################
+### CUSTOM SETTINGS ENDS ###
+############################
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
