@@ -167,6 +167,7 @@ lcratch () # list scratch discs of all running projects
 {
   readarray -t scr_list < <(jobinfo -u willeng | grep " R " | awk '{print $11 " ls -lah /scratch/" $1}')
   declare -p scr_list > /dev/null
+  if [ 1 -gt ${#scr_list} ] ; then echo "You have no running jobs." ; fi
   for i in "${scr_list[@]}"
   do
     echo "${i##* }:"
