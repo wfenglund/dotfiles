@@ -41,12 +41,13 @@ alias dwnld="cd /proj/naiss2023-23-507/william_analysis/downloads"
 # Functions:
 roller ()
 {
-for i in {0..1200}; do
-	lines=$($1 | wc -l)
-	$1 | head -n${lines}   # print `$lines` lines
-	sleep 2
-	echo -e "\e[$((${lines}+1))A"     # go `$lines + 1` up
-done
+  for i in {0..1200}
+  do
+    lines=$($1 | wc -l)
+    $1 | head -n${lines}   # print `$lines` lines
+    sleep 2
+    echo -e "\e[$((${lines}+1))A"     # go `$lines + 1` up
+  done
 }
 
 statflag ()
@@ -164,14 +165,14 @@ mktar ()
 
 lcratch () # list scratch discs of all running projects
 {
-	readarray -t scr_list < <(jobinfo -u willeng | grep " R " | awk '{print $11 " ls -lah /scratch/" $1}')
-	declare -p scr_list > /dev/null
-	for i in "${scr_list[@]}"
-	do
-		echo "${i##* }:"
-		ssh $i
-		echo ""
-	done
+  readarray -t scr_list < <(jobinfo -u willeng | grep " R " | awk '{print $11 " ls -lah /scratch/" $1}')
+  declare -p scr_list > /dev/null
+  for i in "${scr_list[@]}"
+  do
+    echo "${i##* }:"
+    ssh $i
+    echo ""
+  done
 }
 
 awsout ()
