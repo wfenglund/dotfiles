@@ -1,3 +1,15 @@
+## In order for this script to work, you also have to add the line
+# /bin/bash ~/.config_scripts/bgsetter.sh &
+## to your .xprofile, and the following lines to your ~/.i3/config
+# set $ws1 "1:Hartnell"
+# set $ws2 "2:Troughton"
+# set $ws3 "3:Pertwee"
+# set $ws4 "4:Baker1"
+# set $ws5 "5:Davison"
+# set $ws6 "6:Baker2"
+# set $ws7 "7:McCoy"
+# set $ws8 "8:McGann"
+
 old_ws="blank"
 
 while true
