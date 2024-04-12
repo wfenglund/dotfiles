@@ -8,7 +8,7 @@ do
 		if [[ $current_ws == "1:Hartnell" ]]
 		then
 			feh --bg-fill --randomize ~/Bilder/backgrounds/doctor_1/*
-		elif [[ $current_ws == "2:Throughton" ]]
+		elif [[ $current_ws == "2:Troughton" ]]
 		then
 			feh --bg-fill --randomize ~/Bilder/backgrounds/doctor_2/*
 		elif [[ $current_ws == "3:Pertwee" ]]
