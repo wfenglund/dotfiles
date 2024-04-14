@@ -9,7 +9,7 @@ neofetch
 
 # Aliases:
 alias 3up="cd ../../../"
-alias erlh="erl -config ~/.config/erlang/erlang.config"
+alias erl="erl -config ~/.config/erlang/erlang.config"
 alias untar="tar -xvf"
 alias lah="ls -lah"
 alias nocaps="setxkbmap -option caps:ctrl_modifier" # Change caps lock into ctrl
