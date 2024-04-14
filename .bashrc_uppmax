@@ -27,7 +27,7 @@ alias mds="module spider"
 alias la="ls -a"
 alias stpr="source set_variables.sh"
 alias bashedit="vim ~/.bashrc"
-alias erl="~/otp/bin/erl"
+alias erl="~/otp/bin/erl -config ~/.config/erlang/erlang.config"
 alias erlc="~/otp/bin/erlc"
 
 ## Project aliases:
