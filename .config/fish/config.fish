@@ -14,6 +14,7 @@ alias untar="tar -xvf"
 alias lah="ls -lah"
 alias nocaps="setxkbmap -option caps:ctrl_modifier" # Change caps lock into ctrl
 alias rebar3="~/rebar3/rebar3"
+alias getbc="python ~/.config_scripts/getbc.py"
 
 ## Monitor aliases:
 alias 3screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 1920x60 --rotate normal --output HDMI-A-0 --mode 1920x1200 --pos 0x260 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --mode 1920x1080 --pos 4160x380 --rotate normal --output DisplayPort-3 --off"
@@ -22,7 +23,6 @@ alias 2screenclone="xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 --r
 alias 2screendouble="xrandr --output eDP --primary --mode 2240x1400 --pos 0x760 --rotate normal --output HDMI-A-0 --mode 3840x2160 --pos 2240x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --off --output DisplayPort-3 --off"
 
 ## Home specific:
-alias getbc="python /home/william/projects/python/finance/getbc.py"
 alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
 
 ## Work specific:
