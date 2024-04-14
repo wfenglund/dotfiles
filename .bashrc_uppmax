@@ -67,6 +67,13 @@ nrmupload ()
   bash ~/upload_to_nextcloud/cloudsend.sh "$1" "https://nrmcloud.nrm.se/s/EbanzwdawgBM3ES"
 }
 
+erlrun () # compile and run erlang script with start function
+{
+  erlc $1
+  module_name=${1/".erl"/""}
+  erl -noshell -s $module_name start -s init stop 
+}
+
 ## Colors:
 white()
 {
