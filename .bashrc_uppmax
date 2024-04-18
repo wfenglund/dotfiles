@@ -13,6 +13,9 @@ module() { eval `/usr/local/Modules/$MODULE_VERSION/bin/modulecmd $modules_shell
 ### CUSTOM SETTINGS START ###
 #############################
 
+# Path:
+#PATH=$PATH:~/folder_to_add
+
 # Modules:
 module load vim
 
