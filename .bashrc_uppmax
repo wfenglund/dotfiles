@@ -67,7 +67,7 @@ lah ()
 
 nrmupload ()
 {
-  bash ~/upload_to_nextcloud/cloudsend.sh "$1" "https://nrmcloud.nrm.se/s/EbanzwdawgBM3ES"
+  bash ~/cloudsend.sh/cloudsend.sh "$1" "https://nrmcloud.nrm.se/s/EbanzwdawgBM3ES"
 }
 
 erlrun () # compile and run erlang script with start function
