@@ -12,7 +12,7 @@ alias 3up="cd ../../../"
 alias erl="erl -config ~/.config/erlang/erlang.config"
 alias untar="tar -xvf"
 alias lah="ls -lah"
-alias nocaps="setxkbmap -option caps:ctrl_modifier" # Change caps lock into ctrl
+alias nocaps="source ~/.config_scripts/remap_keys.sh" # Change caps lock into less and greater and insert to bar, if caps get stuck activated, run 'onboard' and deactivate
 alias rebar3="~/rebar3/rebar3"
 alias getbc="python ~/.config_scripts/getbc.py"
 
