@@ -16,6 +16,9 @@ module() { eval `/usr/local/Modules/$MODULE_VERSION/bin/modulecmd $modules_shell
 # Path:
 #PATH=$PATH:~/folder_to_add
 
+# Load CGI scripts: (git clone https://github.com/cgi-nrm/CGIBashScripts)
+source ~/CGIBashScripts/cgi_scripts.sh
+
 # Modules:
 module load vim
 
@@ -32,6 +35,7 @@ alias stpr="source set_variables.sh"
 alias bashedit="vim ~/.bashrc"
 alias erl="~/otp/bin/erl -config ~/.config/erlang/erlang.config"
 alias erlc="~/otp/bin/erlc"
+alias hrmsh="python ~/hrmsh/hrmsh.py"
 
 ## Project aliases:
 alias hdata="cd /proj/snic2021-23-233/"
