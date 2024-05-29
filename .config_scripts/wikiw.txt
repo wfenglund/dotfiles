@@ -1,0 +1,2 @@
+i3_group:::sudo pacman -S xorg xorg-init i3-vm i3status i3blocks ; cp /etc/X11/xinit/xinitrc ~/.xinitrc ; vim .xinitrc # replace last line with "exec i3"
+fix_layout:::setxkbmap se
