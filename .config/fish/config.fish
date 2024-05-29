@@ -15,6 +15,7 @@ alias lah="ls -lah"
 alias nocaps="source ~/.config_scripts/remap_keys.sh" # Change caps lock into less and greater and insert to bar, if caps get stuck activated, run 'onboard' and deactivate
 alias rebar3="~/rebar3/rebar3"
 alias getbc="python ~/.config_scripts/getbc.py"
+alias wikiw="python ~/.config_scripts/wikiw.py"
 
 ## Monitor aliases:
 alias 3screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 1920x60 --rotate normal --output HDMI-A-0 --mode 1920x1200 --pos 0x260 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --mode 1920x1080 --pos 4160x380 --rotate normal --output DisplayPort-3 --off"
