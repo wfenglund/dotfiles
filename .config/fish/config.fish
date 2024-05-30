@@ -49,17 +49,21 @@ function gitguide
 end
 
 function zhead
-	zcat $argv | head -n 20
+    zcat $argv | head -n 20
 end
 
 function erlrun # compile and run a file.erl with a start-function
-	erlc $argv
-	string replace ".erl" "" $argv | read module_name
-	erl -noshell -s $module_name start -s init stop
+    erlc $argv
+    string replace ".erl" "" $argv | read module_name
+    erl -noshell -s $module_name start -s init stop
 end
 
 function OnlineBlaster
-	Rscript ~/.config_scripts/webBlast.r $argv
+    Rscript ~/.config_scripts/webBlast.r $argv
+end
+
+function length ()
+    string length $argv
 end
 
 if status is-interactive
