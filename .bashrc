@@ -1,4 +1,5 @@
 # .bashrc, rename file to '.bashrc' so that bash can find it
+# these settings are mostly intended for uppmax
 
 # Modules, activate the module command
 case "$0" in
