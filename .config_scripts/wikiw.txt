@@ -8,3 +8,8 @@ Could also be done with .xprofile
 setxkbmap se
 
 :::mount_unmount_usb_device:::
+sudo mount /dev/sda1 /mnt/usb
+cd /mnt/usb/
+*do stuff*
+cd
+sudo umount /dev/sda1
