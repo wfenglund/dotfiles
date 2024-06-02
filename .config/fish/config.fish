@@ -17,12 +17,6 @@ alias rebar3="~/rebar3/rebar3"
 alias getbc="python ~/dotfiles/.config_scripts/getbc.py"
 alias wikiw="python ~/dotfiles/.config_scripts/wikiw.py"
 
-## Monitor aliases (specifically for work):
-alias 3screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 1920x60 --rotate normal --output HDMI-A-0 --mode 1920x1200 --pos 0x260 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --mode 1920x1080 --pos 4160x380 --rotate normal --output DisplayPort-3 --off"
-alias 1screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 0x0 --rotate normal --output HDMI-A-0 --off --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --off --output DisplayPort-3 --off"
-alias 2screenclone="xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --off --output DisplayPort-3 --off"
-alias 2screendouble="xrandr --output eDP --primary --mode 2240x1400 --pos 0x760 --rotate normal --output HDMI-A-0 --mode 3840x2160 --pos 2240x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --off --output DisplayPort-3 --off"
-
 ## Home specific:
 alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
 
@@ -30,6 +24,13 @@ alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
 alias astral="java -jar /home/william/Astral/astral.5.7.8.jar"
 alias figtree="java -Xms64m -Xmx512m -jar /home/william/figtree/FigTree_v1.4.4/lib/figtree.jar"
 alias catsequences="./catsequences/catsequences"
+
+### Monitor aliases:
+alias 3screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 1920x60 --rotate normal --output HDMI-A-0 --mode 1920x1200 --pos 0x260 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --mode 1920x1080 --pos 4160x380 --rotate normal --output DisplayPort-3 --off"
+alias 1screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 0x0 --rotate normal --output HDMI-A-0 --off --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --off --output DisplayPort-3 --off"
+alias 2screenclone="xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --off --output DisplayPort-3 --off"
+alias 2screendouble="xrandr --output eDP --primary --mode 2240x1400 --pos 0x760 --rotate normal --output HDMI-A-0 --mode 3840x2160 --pos 2240x0 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --off --output DisplayPort-3 --off"
+
 
 # Functions:
 function gitguide
