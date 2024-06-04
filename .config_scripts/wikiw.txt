@@ -39,6 +39,9 @@ BiocManager::install("forcats")
 BiocManager::install("wesanderson")
 BiocManager::install("...") # and so on
 
+If all else fails:
+$ sudo chmod -R 777 /usr/lib/R/
+
 if XML does not work:
 $ mv anaconda3/ anaconda3-bak/
 BiocManager::install("XML")
