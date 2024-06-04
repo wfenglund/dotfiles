@@ -13,3 +13,33 @@ cd /mnt/usb/
 *do stuff*
 cd
 sudo umount /dev/sda1
+
+:::fix_if_R_packages_break:::
+Perform the following steps:
+
+($ sudo pacman -S gcc-fortran)
+$ pamac remove rstudio-desktop
+$ sudo pacman -R r
+$ rm -r R/
+$ sudo pacman -S r
+$ pamac build rstudio-desktop
+
+open rstudio-bin
+
+in rstudio:
+install.packages("BiocManager")
+BiocManager::install("taxize")
+BiocManager::install("reticulate")
+BiocManager::install("dada2")
+BiocManager::install("edgeR")
+BiocManager::install("knitr")
+BiocManager::install("gtools")
+BiocManager::install("readxl")
+BiocManager::install("forcats")
+BiocManager::install("wesanderson")
+BiocManager::install("...") # and so on
+
+if XML does not work:
+$ mv anaconda3/ anaconda3-bak/
+BiocManager::install("XML")
+$ mv anaconda3-bak/ anaconda3/
