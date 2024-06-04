@@ -19,7 +19,7 @@ Perform the following steps:
 
 ($ sudo pacman -S gcc-fortran)
 $ pamac remove rstudio-desktop
-$ sudo pacman -R r
+$ sudo pacman -Rdd r
 $ rm -r R/
 $ sudo pacman -S r
 $ pamac build rstudio-desktop
