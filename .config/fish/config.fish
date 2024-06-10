@@ -13,6 +13,7 @@ alias erl="erl -config ~/.config/erlang/erlang.config"
 alias untar="tar -xvf"
 alias lah="ls -lah"
 alias nocaps="source ~/dotfiles/.config_scripts/remap_keys.sh" # Change caps lock into less and greater and insert to bar, if caps get stuck activated, run 'onboard' and deactivate
+nocaps # remap caps key and insert key
 alias rebar3="~/rebar3/rebar3"
 alias getbc="python ~/dotfiles/.config_scripts/getbc.py"
 alias wikiw="python ~/dotfiles/.config_scripts/wikiw.py"
