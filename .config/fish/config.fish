@@ -12,11 +12,11 @@ alias 3up="cd ../../../"
 alias erl="erl -config ~/.config/erlang/erlang.config"
 alias untar="tar -xvf"
 alias lah="ls -lah"
-alias nocaps="source ~/dotfiles/.config_scripts/remap_keys.sh" # Change caps lock into less and greater and insert to bar, if caps get stuck activated, run 'onboard' and deactivate
+alias nocaps="source ~/dotfiles/config_scripts/remap_keys.sh" # Change caps lock into less and greater and insert to bar, if caps get stuck activated, run 'onboard' and deactivate
 nocaps # remap caps key and insert key
 alias rebar3="~/rebar3/rebar3"
-alias getbc="python ~/dotfiles/.config_scripts/getbc.py"
-alias wikiw="python ~/dotfiles/.config_scripts/wikiw.py"
+alias getbc="python ~/dotfiles/config_scripts/getbc.py"
+alias wikiw="python ~/dotfiles/config_scripts/wikiw.py"
 
 ## Home specific:
 alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
@@ -61,7 +61,7 @@ function erlrun # compile and run a file.erl with a start-function
 end
 
 function OnlineBlaster
-    Rscript ~/dotfiles/.config_scripts/webBlast.r $argv
+    Rscript ~/dotfiles/config_scripts/webBlast.r $argv
 end
 
 function length ()
