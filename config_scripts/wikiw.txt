@@ -46,3 +46,11 @@ if XML does not work:
 $ mv anaconda3/ anaconda3-bak/
 BiocManager::install("XML")
 $ mv anaconda3-bak/ anaconda3/
+
+:::open_a_tty_tty3:::
+open tty3:
+ctrl + alt + f3
+
+f1 and f2 will open tty1 and tty2 etc.
+
+There are 6 teletypewriters accessible in total.
