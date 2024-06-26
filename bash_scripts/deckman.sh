@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Variables:
 first_arg=$1
 secon_arg=$2

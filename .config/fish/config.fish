@@ -1,7 +1,8 @@
 # The path of this file should be ~/.config/fish/config.fish
 
 # Path:
-set PATH $PATH /home/william/anaconda3/bin
+set PATH $PATH $HOME/anaconda3/bin
+fish_add_path $HOME/dotfiles/bash_scripts
 
 # Greeting
 set -U fish_greeting
