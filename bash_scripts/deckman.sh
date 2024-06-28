@@ -22,11 +22,13 @@ print_hlp () {
   echo "Usage:"
   echo "$ deckman [FLAG] [...] [...]"$'\n'
   echo "Flags:"
-  echo "--hlp"$'\t\t\t\t'"- display this info"
-  echo "--new [DECK_NAME]"$'\t\t'"- create a new deck (in directory $deck_dir)."
-  echo "--add [DECK_NAME] [CARD_INFO]"$'\t'"- add card to deck in the format \"STATUS,NAME,TYPE,COUNT,COMMENT\" (within quotes). Leave entry empty if unknown or undecided, but use four commas either way."
-  echo "--rem [DECK_NAME] [CARD_ID]"$'\t'"- remove card related to the given card id."
-  echo "--flt [DECK_NAME] [ENTRY:PTRN]"$'\t'"- print deck, with optional filtering parameters."
+  echo "--hlp"$'\t\t\t\t\t'"- display this info"
+  echo "--new [DECK_NAME]"$'\t\t\t'"- create a new deck (in directory $deck_dir)."
+  echo "--add [DECK_NAME] [CARD_INFO]"$'\t\t'"- add card to deck in the format \"STATUS,NAME,TYPE,COUNT,COMMENT\" (within quotes). Leave entry empty if unknown or undecided, but use four commas either way."
+  echo "--rem [DECK_NAME] [CARD_ID]"$'\t\t'"- remove card related to the given card id."
+  echo "--flt [DECK_NAME] [ENTRY:PTRN]"$'\t\t'"- print deck, with optional filtering parameters."
+  echo "--edt [DECK_NAME] [CARD_ID:ENTRY:NEW]"$'\t'"- change the text in a card entry to something else."
+  echo "--vim [DECK_NAME]"$'\t\t\t'"- edit the deck directly with vim."
 }
 
 add_card () {
@@ -77,7 +79,7 @@ edt_deck () {
   deck_nam=$1
   card_edt=$2
   IFS=: read -r card_id entry new_nfo <<< $card_edt
-  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["comment"]="6" )
+  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["comment"]="6" ) # there are issues if unknown choice is selected
   entry_col=${col_dict[$entry]}
   if test -f $deck_dir/$deck_nam
   then
@@ -133,6 +135,11 @@ else # if second argument is not empty
   elif [ $first_arg == "--edt" ]
   then
     edt_deck $secon_arg $third_arg
+
+  ### Edit the deck manually with vim:
+  elif [ $first_arg == "--vim" ]
+  then
+    vim $deck_dir/$secon_arg
   
   ### Invalid flag:
   else
