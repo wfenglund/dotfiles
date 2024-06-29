@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Variables:
-first_arg=$1
-secon_arg=$2
-third_arg=$3
-deck_dir="$HOME/.dmdecks"
-
 # Functions:
 mkid () { # $1 = deck
   old_id=`awk 'BEGIN{FS=","};{print $1}' $deck_dir/$1 | sort -g | tail -1`
@@ -20,58 +14,51 @@ mkid () { # $1 = deck
 
 print_hlp () {
   echo "Usage:"
-  echo "$ deckman [FLAG] [...] [...]"$'\n'
+  echo "$ deckman [DECK_NAME] [FLAG] [...]"$'\n'
   echo "Flags:"
-  echo "--hlp"$'\t\t\t\t\t'"- display this info"
-  echo "--new [DECK_NAME]"$'\t\t\t'"- create a new deck (in directory $deck_dir)."
-  echo "--add [DECK_NAME] [CARD_INFO]"$'\t\t'"- add card to deck in the format \"STATUS,NAME,TYPE,COUNT,COMMENT\" (within quotes). Leave entry empty if unknown or undecided, but use four commas either way."
-  echo "--rem [DECK_NAME] [CARD_ID]"$'\t\t'"- remove card related to the given card id."
-  echo "--flt [DECK_NAME] [ENTRY:PTRN]"$'\t\t'"- print deck, with optional filtering parameters."
-  echo "--edt [DECK_NAME] [CARD_ID:ENTRY:NEW]"$'\t'"- change the text in a card entry to something else."
-  echo "--vim [DECK_NAME]"$'\t\t\t'"- edit the deck directly with vim."
+  echo "--hlp "$'\t\t\t'"- display this info"
+  echo "--new "$'\t\t\t'"- create a new deck (in directory $deck_dir)."
+  echo "--add [CRD_INFO]"$'\t'"- add card to deck in the format \"STATUS,NAME,TYPE,COUNT,NOTE\" (within quotes). Use four commas even if some entries are empty."
+  echo "--rem [CRD_ID]"$'\t\t'"- remove card related to the given card id."
+  echo "--flt [NTRY:PTRN]"$'\t'"- print deck, with optional filtering parameters."
+  echo "--edt [CRD_ID:NTRY:NEW]"$'\t'"- given a card id, change the text in a card entry to something else."
+  echo "--vim "$'\t\t\t'"- edit the deck directly with vim."
 }
 
 add_card () {
   deck_nam=$1
   card_str=$2
-  if test -f $deck_dir/$deck_nam
+  IFS=,;read -a card_arr <<< "$card_str "
+  for i in "${!card_arr[@]}"
+  do
+    card_arr[$i]="${card_arr[$i]:-unset}"
+  done
+  if [ ${#card_arr[@]} == 5 ]
   then
-    IFS=,;read -a card_arr <<< "$card_str "
-    for i in "${!card_arr[@]}"
-    do
-      card_arr[$i]="${card_arr[$i]:-unset}"
-    done
-    if [ ${#card_arr[@]} == 5 ]
-    then
-      card_id=`mkid $deck_nam` # generate card id
-      card_arr=($card_id "${card_arr[@]}")
-      echo "${card_arr[*]}" >> $deck_dir/$deck_nam
-    else
-      echo "Invalid number of entries. There must be exactly five: \"STATUS,NAME,TYPE,COUNT,COMMENT\" (within quotes)."
-    fi
+    card_id=`mkid $deck_nam` # generate card id
+    card_arr=($card_id "${card_arr[@]}")
+    echo "${card_arr[*]}" >> $deck_dir/$deck_nam
   else
-    echo "deck $deck_nam does not exist. Create it with:"
-    echo "$ deckman --new $deck_nam"
+    echo "Invalid number of entries. There must be exactly five: \"STATUS,NAME,TYPE,COUNT,NOTE\" (within quotes)."
   fi
 }
 
 flt_deck () {
   deck_nam=$1
   filt_par=$2
-  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["comment"]="6" )
-  if test -f $deck_dir/$deck_nam
+  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["note"]="6" )
+  if [ ${#filt_par} == 0 ] # if no argument is given
   then
-    if [ ${#filt_par} == 0 ] # if no argument is given
-    then
-      awk 'BEGIN{FS=","; print "id\tstatus\tname\ttype\tcount\tcomment"};{print $1 "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6}' $deck_dir/$deck_nam
-    else
-      IFS=: read -r entry ptrn <<< $filt_par
-      entry_col=${col_dict[$entry]}
-      awk -v column="$entry_col" -v val="$ptrn" 'BEGIN{FS=","; print "id\tstatus\tname\ttype\tcount\tcomment"};{if($column == val) print $1 "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6}' $deck_dir/$deck_nam
-    fi
+    awk \
+      'BEGIN{FS=","; print "id,status,name,type,count,note"};{print $1 "," $2 "," $3 "," $4 "," $5 "," $6}' \
+      $deck_dir/$deck_nam | column -s ',' -t
   else
-    echo "deck $secon_arg does not exist. Create it with"
-    echo "$ deckman --new $secon_arg"
+    IFS=:;read -r entry ptrn <<< $filt_par
+    ntry_col=${col_dict[$entry]}
+    awk \
+      -v col="$ntry_col" -v val="$ptrn" \
+      'BEGIN{FS=","; print "id,status,name,type,count,note"};{if(match($col, val)) print $1 "," $2 "," $3 "," $4 "," $5 "," $6}' \
+      $deck_dir/$deck_nam | column -s ',' -t
   fi
 }
 
@@ -79,71 +66,80 @@ edt_deck () {
   deck_nam=$1
   card_edt=$2
   IFS=: read -r card_id entry new_nfo <<< $card_edt
-  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["comment"]="6" ) # there are issues if unknown choice is selected
-  entry_col=${col_dict[$entry]}
-  if test -f $deck_dir/$deck_nam
+  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["note"]="6" ) # there are issues if unknown choice is selected
+  ntry_col=${col_dict[$entry]}
+  if [ ${#card_edt} == 0 ] # if no argument is given
   then
-    if [ ${#card_edt} == 0 ] # if no argument is given
-    then
-      echo "No filtering parameters given."
-    else
-      awk -v id="$card_id" -v col="$entry_col" -v nfo="$new_nfo" 'BEGIN{FS=",";OFS=","};{if($1==id) {$col=nfo}; print}' $deck_dir/$deck_nam > $deck_dir/tmp
-      mv $deck_dir/tmp $deck_dir/$deck_nam
-    fi
+    echo "No filtering parameters given."
   else
-    echo "deck $secon_arg does not exist. Create it with"
-    echo "$ deckman --new $secon_arg"
+    awk \
+      -v id="$card_id" -v col="$ntry_col" -v nfo="$new_nfo" \
+      'BEGIN{FS=",";OFS=","};{if($1==id) {$col=nfo}; print}' \
+      $deck_dir/$deck_nam > $deck_dir/tmp
+    mv $deck_dir/tmp $deck_dir/$deck_nam
+  fi
+}
+
+parse_flags () {
+  deck_nam=$1
+  inp_flag=$2
+  settings=$3
+  ### Add card to deck:
+  if [ $inp_flag == "--add" ]
+  then
+    add_card $deck_nam $settings
+  ### Remove card from deck
+  elif [ $inp_flag == "--rem" ]
+  then
+    awk \
+      -v rm_id="$settings" \
+      'BEGIN{FS=","};$1 != rm_id {print}' \
+      $deck_dir/$deck_nam | sort -g > $deck_dir/tmp
+    mv $deck_dir/tmp $deck_dir/$deck_nam
+  ### Filter and print deck:
+  elif [ $inp_flag == "--flt" ]
+  then
+    flt_deck $deck_nam "$settings"
+  ### Edit a card in deck:
+  elif [ $inp_flag == "--edt" ]
+  then
+    edt_deck $deck_nam $settings
+  ### Edit the deck manually with vim:
+  elif [ $inp_flag == "--vim" ]
+  then
+    vim $deck_dir/$deck_nam
+  ### Invalid flag:
+  else
+    echo "Invalid deckman flag or input. run deckman.sh --hlp for instructions."
   fi
 }
 
 # Main program:
-if [ ${#first_arg} == 0 ] # if no argument is given
-then
-  echo "invalid deckman flag or input. run deckman --hlp for instructions."
-elif [ ${#secon_arg} == 0 ] # if second argument is empty
-then
-  if [ $first_arg == "--hlp" ]
-  then
-    print_hlp
-  else
-  echo "invalid deckman flag or input. run deckman --hlp for instructions."
-  fi
-else # if second argument is not empty
-  ### New deck:
-  if [ $first_arg == "--new" ]
-  then
-    mkdir -p $deck_dir
-    touch $deck_dir/$secon_arg
-  
-  ### Add card to deck:
-  elif [ $first_arg == "--add" ]
-  then
-    add_card $secon_arg $third_arg
 
-  ### Remove card from deck
-  elif [ $first_arg == "--rem" ]
-  then
-    awk -v rm_id="$third_arg" 'BEGIN{FS=","};$1 != rm_id {print}' $deck_dir/$secon_arg | sort -g > $deck_dir/tmp
-    mv $deck_dir/tmp $deck_dir/$secon_arg
-  
-  ### Filter and print deck:
-  elif [ $first_arg == "--flt" ]
-  then
-    flt_deck $secon_arg $third_arg
-  
-  ### Edit a card in deck:
-  elif [ $first_arg == "--edt" ]
-  then
-    edt_deck $secon_arg $third_arg
+## Variables:
+first_arg=$1
+secon_arg=$2
+third_arg=$3
+deck_dir="$HOME/.dmdecks"
 
-  ### Edit the deck manually with vim:
-  elif [ $first_arg == "--vim" ]
-  then
-    vim $deck_dir/$secon_arg
-  
-  ### Invalid flag:
-  else
-    echo "invalid deckman flag or input. run deckman --hlp for instructions."
-  fi
+if [ ${#secon_arg} == 0 ]
+then
+  secon_arg="--flt"
 fi
 
+## Argument parsing:
+if [ ${#first_arg} == 0 ] || [ $first_arg == "--hlp" ]
+then
+  print_hlp
+elif [ -f $deck_dir/$first_arg ]
+then
+  parse_flags $first_arg $secon_arg "$third_arg"
+elif [ $secon_arg == "--new" ]
+then
+  mkdir -p $deck_dir
+  touch $deck_dir/$first_arg
+else
+  echo "Deck $first_arg does not exist. Create it with:"
+  echo "$ deckman.sh $first_arg --new"
+  echo $'\n'"(or run deckman.sh --hlp for detailed instructions.)"
+fi
