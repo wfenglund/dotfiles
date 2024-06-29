@@ -87,7 +87,7 @@ parse_flags () {
   ### Add card to deck:
   if [ $inp_flag == "--add" ]
   then
-    add_card $deck_nam $settings
+    add_card $deck_nam "$settings"
   ### Remove card from deck
   elif [ $inp_flag == "--rem" ]
   then
