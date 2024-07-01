@@ -20,8 +20,8 @@ print_hlp () {
   echo "--new "$'\t\t\t'"- create a new deck (in directory $deck_dir)."
   echo "--add [CRD_INFO]"$'\t'"- add card to deck in the format \"STATUS,NAME,TYPE,COUNT,NOTE\" (within quotes). Use four commas even if some entries are empty."
   echo "--rem [CRD_ID]"$'\t\t'"- remove card related to the given card id."
-  echo "--flt [NTRY:PTRN]"$'\t'"- print deck, with optional filtering parameters."
-  echo "--edt [CRD_ID:NTRY:NEW]"$'\t'"- given a card id, change the text in a card entry to something else."
+  echo "--flt [CLMN:PTRN]"$'\t'"- print deck, with optional filtering parameters (column can be by name or number)."
+  echo "--edt [CRD_ID:CLMN:NEW]"$'\t'"- given a card id and column, change the text in a card entry to something else."
   echo "--vim "$'\t\t\t'"- edit the deck directly with vim."
 }
 
@@ -33,31 +33,55 @@ add_card () {
   do
     card_arr[$i]="${card_arr[$i]:-unset}"
   done
-  if [ ${#card_arr[@]} == 5 ]
+  if [ ${#card_arr[@]} == 5 ] # edit so that it is ncol instead
   then
     card_id=`mkid $deck_nam` # generate card id
     card_arr=($card_id "${card_arr[@]}")
     echo "${card_arr[*]}" >> $deck_dir/$deck_nam
   else
-    echo "Invalid number of entries. There must be exactly five: \"STATUS,NAME,TYPE,COUNT,NOTE\" (within quotes)."
+    echo "Invalid number of entries. There must be exactly five: \"STATUS,NAME,TYPE,COUNT,NOTE\" (within quotes)." # edit to be generated
   fi
 }
 
 flt_deck () {
+  ### Declare variables:
   deck_nam=$1
   filt_par=$2
-  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["note"]="6" )
+  
+  ### Generate dictionary:
+  header=$(head -n 1 $deck_dir/$deck_nam)
+  IFS=,;read -a cols <<< "$header"
+  declare -A col_dict
+  counter=1
+  for i in ${cols[@]}
+  do
+    col_dict[$i]=$counter
+    counter=$(($counter + 1))
+  done
+
+  ### Parse filtering arguments:
   if [ ${#filt_par} == 0 ] # if no argument is given
   then
     awk \
-      'BEGIN{FS=","; print "id,status,name,type,count,note"};{print $1 "," $2 "," $3 "," $4 "," $5 "," $6}' \
+      'BEGIN{FS=",";if(NR==1) print};{if(NR>1) print}' \
       $deck_dir/$deck_nam | column -s ',' -t
   else
     IFS=:;read -r entry ptrn <<< $filt_par
-    ntry_col=${col_dict[$entry]}
+    
+    #### Figure out which column to filter by:
+    value="\<$entry\>"
+    if [[ ${cols[@]} =~ $value ]]
+    then
+      col_num=${col_dict[$entry]}
+    else
+      index=$(($entry - 1))
+      col_num=${col_dict[${cols[$index]}]}
+    fi
+
+    #### Filter deck:
     awk \
-      -v col="$ntry_col" -v val="$ptrn" \
-      'BEGIN{FS=","; print "id,status,name,type,count,note"};{if(match($col, val)) print $1 "," $2 "," $3 "," $4 "," $5 "," $6}' \
+      -v col="$col_num" -v val="$ptrn" \
+      'BEGIN{FS=",";if(NR==1) print};{if(match($col, val) == (NR>1)) print}' \
       $deck_dir/$deck_nam | column -s ',' -t
   fi
 }
@@ -66,17 +90,40 @@ edt_deck () {
   deck_nam=$1
   card_edt=$2
   IFS=: read -r card_id entry new_nfo <<< $card_edt
-  declare -A col_dict=( ["id"]="1" ["status"]="2" ["name"]="3" ["type"]="4" ["count"]="5" ["note"]="6" ) # there are issues if unknown choice is selected
-  ntry_col=${col_dict[$entry]}
+  
+  ### Generate dictionary:
+  header=$(head -n 1 $deck_dir/$deck_nam)
+  IFS=,;read -a cols <<< "$header"
+  declare -A col_dict
+  counter=1
+  for i in ${cols[@]}
+  do
+    col_dict[$i]=$counter
+    counter=$(($counter + 1))
+  done
+  
+  ### Figure out which column to edit:
+  value="\<$entry\>"
+  if [[ ${cols[@]} =~ $value ]]
+  then
+    ntry_col=${col_dict[$entry]}
+  else
+    index=$(($entry - 1))
+    ntry_col=${col_dict[${cols[$index]}]}
+  fi
+
   if [ ${#card_edt} == 0 ] # if no argument is given
   then
     echo "No filtering parameters given."
-  else
+  elif [ ${#ntry_col} != 0 ] # if column was identified
+  then
     awk \
       -v id="$card_id" -v col="$ntry_col" -v nfo="$new_nfo" \
       'BEGIN{FS=",";OFS=","};{if($1==id) {$col=nfo}; print}' \
       $deck_dir/$deck_nam > $deck_dir/tmp
     mv $deck_dir/tmp $deck_dir/$deck_nam
+  else
+    echo "Column not found."
   fi
 }
 
@@ -135,9 +182,10 @@ elif [ -f $deck_dir/$first_arg ]
 then
   parse_flags $first_arg $secon_arg "$third_arg"
 elif [ $secon_arg == "--new" ]
-then
+then # edit so that columns can be given
   mkdir -p $deck_dir
   touch $deck_dir/$first_arg
+  echo "id,status,name,type,count,note" >> $deck_dir/$first_arg
 else
   echo "Deck $first_arg does not exist. Create it with:"
   echo "$ deckman.sh $first_arg --new"
