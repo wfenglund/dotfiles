@@ -55,5 +55,6 @@ f1 and f2 will open tty1 and tty2 etc.
 
 There are 6 teletypewriters accessible in total.
 
-:::fix_when_multiqc_breaks_after_update:::
-sudo pip install multiqc --break-system-packages
+:::fix_when_multiqc_and_cutadapt_breaks_after_update:::
+pip install multiqc --break-system-packages # sudo?
+pip install cutadapt --break-system-packages
