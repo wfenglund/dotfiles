@@ -65,3 +65,6 @@ $ bcftools query -l file.vcf.gz > subset_list.txt
 
 Edit subset_list.txt and remove any samples that are not to be included, and run:
 $ vcftools --gzvcf ./file.vcf.gz --keep subset_list.txt --remove-indels --max-missing 0.95 --minQ 30 --recode --stdout | gzip -c > subset_file.vcf.gz
+
+:::print_vcf_sample_list_vcftools:::
+$ bcftools query -l file.vcf.gz > subset_list.txt
