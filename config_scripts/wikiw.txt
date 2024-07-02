@@ -58,3 +58,10 @@ There are 6 teletypewriters accessible in total.
 :::fix_when_multiqc_and_cutadapt_breaks_after_update:::
 pip install multiqc --break-system-packages # sudo?
 pip install cutadapt --break-system-packages
+
+:::subset_a_vcf_using_vcftools:::
+First create a file with sample names:
+$ bcftools query -l file.vcf.gz > subset_list.txt
+
+Edit subset_list.txt and remove any samples that are not to be included, and run:
+$ vcftools --gzvcf ./file.vcf.gz --keep subset_list.txt --remove-indels --max-missing 0.95 --minQ 30 --recode --stdout | gzip -c > subset_file.vcf.gz
