@@ -28,12 +28,13 @@ print_hlp () {
 add_card () {
   deck_nam=$1
   card_str=$2
+  deck_ncol=$((`awk 'BEGIN{FS=","};{print NF; exit}' $deck_dir/$deck_nam` - 1))
   IFS=,;read -a card_arr <<< "$card_str "
   for i in "${!card_arr[@]}"
   do
     card_arr[$i]="${card_arr[$i]:-unset}"
   done
-  if [ ${#card_arr[@]} == 5 ] # edit so that it is ncol instead
+  if [ ${#card_arr[@]} == $deck_ncol ] # if correct number of entries
   then
     card_id=`mkid $deck_nam` # generate card id
     card_arr=($card_id "${card_arr[@]}")
@@ -63,7 +64,7 @@ flt_deck () {
   if [ ${#filt_par} == 0 ] # if no argument is given
   then
     awk \
-      'BEGIN{FS=",";if(NR==1) print};{if(NR>1) print}' \
+      'BEGIN{FS=","};{print}' \
       $deck_dir/$deck_nam | column -s ',' -t
   else
     IFS=:;read -r entry ptrn <<< $filt_par
