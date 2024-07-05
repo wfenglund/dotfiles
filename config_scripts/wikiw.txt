@@ -68,3 +68,11 @@ $ vcftools --gzvcf ./file.vcf.gz --keep subset_list.txt --remove-indels --max-mi
 
 :::print_vcf_sample_list_vcftools:::
 $ bcftools query -l file.vcf.gz > subset_list.txt
+
+:::weird_unresponsive_i3_and_super_key:::
+Try:
+$ mv ~/dotfiles ~/dotfiles_bk
+$ reboot # also rename dotfiles again to original depending on result
+
+Try:
+super + caps + enter # last time this worked and made regular super + enter work
