@@ -76,3 +76,12 @@ $ reboot # also rename dotfiles again to original depending on result
 
 Try:
 super + caps + enter # last time this worked and made regular super + enter work
+
+:::bash_if_length:::
+var1="string"
+if [ ${#var1} == 0 ]
+then
+  # if code block
+else
+  # else code block
+fi
