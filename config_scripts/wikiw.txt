@@ -88,3 +88,7 @@ then
 else
   # else code block
 fi
+
+:::bash_arithmetic_operations_addition:::
+$ var1=5
+$ echo $((var1 + 2))
