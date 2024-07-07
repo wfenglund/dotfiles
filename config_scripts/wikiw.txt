@@ -77,11 +77,14 @@ $ reboot # also rename dotfiles again to original depending on result
 Try:
 super + caps + enter # last time this worked and made regular super + enter work
 
-:::bash_if_length:::
+:::bash_if_length_elif_file_exists:::
 var1="string"
-if [ ${#var1} == 0 ]
+if [ ${#var1} > 7 ] # if string is longer than 7 characters
 then
   # if code block
+elif [ -f /path/to/file ] # if file exists
+then
+  # elif code block
 else
   # else code block
 fi
