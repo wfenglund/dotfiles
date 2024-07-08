@@ -18,7 +18,7 @@ print_hlp () {
   echo "Flags:"
   echo "--hlp "$'\t\t\t'"- display this info"
   echo "--new "$'\t\t\t'"- create a new deck (in directory $deck_dir)."
-  echo "--add [CRD_INFO]"$'\t'"- add card to deck in the format \"STATUS,NAME,TYPE,COUNT,NOTE\" (within quotes). Use four commas even if some entries are empty."
+  echo "--add [CRD_INFO]"$'\t'"- add card to deck in the format \"STATUS,NAME,TYPE,COUNT,NOTE\" (within quotes). Use four commas even if some entries are empty." # update to new functionality
   echo "--rem [CRD_ID]"$'\t\t'"- remove card related to the given card id."
   echo "--flt [CLMN:PTRN]"$'\t'"- print deck, with optional filtering parameters (column can be by name or number)."
   echo "--edt [CRD_ID:CLMN:NEW]"$'\t'"- given a card id and column, change the text in a card entry to something else."
@@ -183,10 +183,16 @@ elif [ -f $deck_dir/$first_arg ]
 then
   parse_flags $first_arg $secon_arg "$third_arg"
 elif [ $secon_arg == "--new" ]
-then # edit so that columns can be given
+then
   mkdir -p $deck_dir
   touch $deck_dir/$first_arg
-  echo "id,status,name,type,count,note" >> $deck_dir/$first_arg
+  if [ ${#third_arg} == 0 ] # if no column names are given
+  then
+    echo "id,status,name,type,count,note" >> $deck_dir/$first_arg
+  else
+    clean_cols=${third_arg//" "/""} # remove all spaces
+    echo "id,"$clean_cols >> $deck_dir/$first_arg
+  fi
 else
   echo "Deck $first_arg does not exist. Create it with:"
   echo "$ deckman.sh $first_arg --new"
