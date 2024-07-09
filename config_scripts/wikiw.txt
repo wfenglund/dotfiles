@@ -92,3 +92,9 @@ fi
 :::bash_arithmetic_operations_addition:::
 $ var1=5
 $ echo $((var1 + 2))
+
+:::make_blast_database_and_perform_local_blast:::
+# create local blast database:
+$ makeblastdb -in fasta_file.fa -parse_seqids -dbtype nucl -out blast_database_name
+# perform local blast (edit max_target_seqs, num_threads and output format if needed):
+$ blastn -query ./seqs_to_be_identidied.fa -db ./blast_database_name -out ./blast_results.out -outfmt "6 qseqid sseqid sstart send evalue pident sscinames" -max_target_seqs 10 -num_threads 20
