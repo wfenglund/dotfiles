@@ -99,6 +99,10 @@ $ makeblastdb -in fasta_file.fa -parse_seqids -dbtype nucl -out blast_database_n
 # perform local blast (edit max_target_seqs, num_threads and output format if needed):
 $ blastn -query ./seqs_to_be_identidied.fa -db ./blast_database_name -out ./blast_results.out -outfmt "6 qseqid sseqid sstart send evalue pident sscinames" -max_target_seqs 10 -num_threads 20
 
+:::retrieve_blast_hit_sequence_from_database:::
+# run the following (sseqid, sstart and send are a possible outputs from blastn local blast):
+blastdbcmd -db ./blast_database_name -entry [sseqid] -range [sstart]-[send]
+
 :::git_commit_earlier_date:::
 # In case code changes were made that should logically be placed at an earlier (or later) date, do the following (replace GIT_COMMITTER_DATE and message):
 $ GIT_AUTHOR_DATE="2099-09-09 09:09" GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE git commit -m "commit message"
