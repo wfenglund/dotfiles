@@ -1,7 +1,9 @@
-if [ -f ~/.universal_notes.txt ]
+notes_file=$HOME"/.universal_notes.txt"
+
+if [ -f $notes_file ]
 then
-  vim ~/.universal_notes.txt
+  vim $notes_file
 else
-  touch ~/universal_notes.txt
-  vim ~/universal_notes.txt
+  touch $notes_file
+  vim $notes_file
 fi
