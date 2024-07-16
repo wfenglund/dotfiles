@@ -19,6 +19,7 @@ alias rebar3="~/rebar3/rebar3"
 alias getbc="python ~/dotfiles/config_scripts/getbc.py"
 alias wikiw="python ~/dotfiles/config_scripts/wikiw.py"
 alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh"
+alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt"
 
 ## Home specific:
 alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
