@@ -18,9 +18,8 @@ nocaps # remap caps key and insert key
 alias rebar3="~/rebar3/rebar3"
 alias getbc="python ~/dotfiles/config_scripts/getbc.py"
 alias wikiw="python ~/dotfiles/config_scripts/wikiw.py"
-alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh"
-alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt"
-alias todowork="bash ~/dotfiles/bash_scripts/unnotate.sh $HOME/cgi/todo.txt"
+alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh" # access universal notes
+alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt" # create/access notes file at present location
 
 ## Home specific:
 alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
@@ -29,6 +28,7 @@ alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
 alias astral="java -jar /home/william/Astral/astral.5.7.8.jar"
 alias figtree="java -Xms64m -Xmx512m -jar /home/william/figtree/FigTree_v1.4.4/lib/figtree.jar"
 alias catsequences="./catsequences/catsequences"
+alias todowork="bash ~/dotfiles/bash_scripts/unnotate.sh $HOME/cgi/todo.txt" # access work todo list
 
 ### Monitor aliases:
 alias 3screenwork="xrandr --output eDP --primary --mode 2240x1400 --pos 1920x60 --rotate normal --output HDMI-A-0 --mode 1920x1200 --pos 0x260 --rotate normal --output DisplayPort-0 --off --output DisplayPort-1 --off --output DisplayPort-2 --mode 1920x1080 --pos 4160x380 --rotate normal --output DisplayPort-3 --off"
