@@ -39,39 +39,39 @@ alias 2screendouble="xrandr --output eDP --primary --mode 2240x1400 --pos 0x760 
 
 # Functions:
 function gitguide
-    echo "git clone <url>"
-    echo "git branch"
-    echo "git checkout -b <branch name>"
-    echo "git remote add upstream <url>"
-    echo "# add and commit changes"
-    echo "git checkout main"
-    echo "git pull upstream main"
-    echo "git checkout <branch name>"
-    echo "git merge main"
-    echo "git push origin <branch name>"
-    # git remote set-url origin https://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@github.com/wfenglund/eDNA
-    echo "# Make pull request"
-    echo ""
+  echo "git clone <url>"
+  echo "git branch"
+  echo "git checkout -b <branch name>"
+  echo "git remote add upstream <url>"
+  echo "# add and commit changes"
+  echo "git checkout main"
+  echo "git pull upstream main"
+  echo "git checkout <branch name>"
+  echo "git merge main"
+  echo "git push origin <branch name>"
+  # git remote set-url origin https://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@github.com/wfenglund/eDNA
+  echo "# Make pull request"
+  echo ""
 end
 
 function zhead
-    zcat $argv | head -n 20
+  zcat $argv | head -n 20
 end
 
 function erlrun # compile and run a file.erl with a start-function
-    erlc $argv
-    string replace ".erl" "" $argv | read module_name
-    erl -noshell -s $module_name start -s init stop
+  erlc $argv
+  string replace ".erl" "" $argv | read module_name
+  erl -noshell -s $module_name start -s init stop
 end
 
 function OnlineBlaster
-    Rscript ~/dotfiles/config_scripts/webBlast.r $argv
+  Rscript ~/dotfiles/config_scripts/webBlast.r $argv
 end
 
 function length ()
-    string length $argv
+  string length $argv
 end
 
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+  # Commands to run in interactive sessions can go here
 end
