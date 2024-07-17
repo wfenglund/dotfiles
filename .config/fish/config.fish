@@ -20,6 +20,7 @@ alias getbc="python ~/dotfiles/config_scripts/getbc.py"
 alias wikiw="python ~/dotfiles/config_scripts/wikiw.py"
 alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh"
 alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt"
+alias todowork="bash ~/dotfiles/bash_scripts/unnotate.sh $HOME/cgi/todo.txt"
 
 ## Home specific:
 alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
