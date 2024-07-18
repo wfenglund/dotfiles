@@ -106,3 +106,6 @@ blastdbcmd -db ./blast_database_name -entry [sseqid] -range [sstart]-[send]
 :::git_commit_earlier_date:::
 # In case code changes were made that should logically be placed at an earlier (or later) date, do the following (replace GIT_COMMITTER_DATE and message):
 $ GIT_AUTHOR_DATE="2099-09-09 09:09" GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE git commit -m "commit message"
+
+:::awk_set_delimiter_file_separator:::
+awk 'BEGIN{FS=";"};{print}'
