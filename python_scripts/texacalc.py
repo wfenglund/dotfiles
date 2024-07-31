@@ -13,7 +13,10 @@ hole_dict = {'AA':'1', 'KK':'2', 'QQ':'3', 'AKs':'4', 'JJ':'5', 'AQs':'6', 'KQs'
 def calculate_hand():
     hand = input('What are your hole cards? ')
     if hand != 'q':
-        print(f'{hand} hole card rank: {hole_dict[hand]}')
+        if hand in hole_dict.keys():
+            print(f'{hand} hole card rank: {hole_dict[hand]}')
+        else:
+            print('Card combination not found in database.')
     else:
         return 'quit'
 
