@@ -21,6 +21,7 @@ hole_dict = {'AA':'1, 85%', 'KK':'2, 83%', 'QQ':'3, 80%', 'AKs':'4, 68%', 'JJ':'
 
 def calculate_hand():
     hand = input('What are your hole cards? ')
+    hand = hand.upper()[0:2] + hand.lower()[2] # fix capitalization of hand
     if hand != 'q':
         if hand in hole_dict.keys():
             print(f'{hand} hole card rank: {hole_dict[hand]} win chance against 1 opponent.')
