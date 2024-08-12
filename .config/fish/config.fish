@@ -72,6 +72,10 @@ function length ()
   string length $argv
 end
 
+function zdiff
+	bash ~/dotfiles/bash_scripts/zdiff.sh $argv[1] $argv[2]
+end
+
 if status is-interactive
   # Commands to run in interactive sessions can go here
 end
