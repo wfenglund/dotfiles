@@ -110,5 +110,16 @@ $ GIT_AUTHOR_DATE="2099-09-09 09:09" GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE git com
 :::awk_set_delimiter_file_separator:::
 awk 'BEGIN{FS=";"};{print}'
 
+<<<<<<< HEAD
 :::find_all_files_below:::
 $ find . -iname '*.sh' -type f
+=======
+:::R_install_package_from_source_rgdal:::
+$ wget https://cran.r-project.org/src/contrib/Archive/rgdal/rgdal_1.6-7.tar.gz
+$ R
+> install.packages("./rgdal_1.6-7.tar.gz", repos=NULL)
+
+:::R_remove_package:::
+$ R
+> remove.packages("ggplot2", "/usr/lib/R/library/")
+>>>>>>> 2596be8 (added wikiw entries related to R packages)
