@@ -76,6 +76,10 @@ function zdiff
 	bash ~/dotfiles/bash_scripts/zdiff.sh $argv[1] $argv[2]
 end
 
+function pmocver ()
+  python ~/CGIBashScripts/subscripts/pmocver.py $argv
+end
+
 if status is-interactive
   # Commands to run in interactive sessions can go here
 end
