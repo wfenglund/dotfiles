@@ -122,4 +122,6 @@ $ R
 :::R_remove_package:::
 $ R
 > remove.packages("ggplot2", "/usr/lib/R/library/")
->>>>>>> 2596be8 (added wikiw entries related to R packages)
+
+:::find_all_files_with_string:::
+$ find . -iname '*.sh' -type f
