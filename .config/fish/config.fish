@@ -20,6 +20,7 @@ alias getbc="python ~/dotfiles/config_scripts/getbc.py"
 alias wikiw="python ~/dotfiles/config_scripts/wikiw.py"
 alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh" # access universal notes
 alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt" # create/access notes file at present location
+alias fqsttr="bash ~/dotfiles/bash_scripts/fqsttr.sh"
 
 ## SSH:
 alias uppmax_ssh="ssh willeng@rackham.uppmax.uu.se"
