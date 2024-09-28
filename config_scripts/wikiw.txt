@@ -149,4 +149,7 @@ Install opentrons:
 $ pip install opentrons
 
 Run simulation:
-$ ~/.local/bin/opentrons_simulate bead_cleanup_32_round1.py 
+$ ~/.local/bin/opentrons_simulate bead_cleanup_32_round1.py
+
+:::bash_align_comma_separated_columns_csv:::
+cat something.csv | column -s ',' -t
