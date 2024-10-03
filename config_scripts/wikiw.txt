@@ -85,6 +85,9 @@ then
 elif [ -f /path/to/file ] # if file exists
 then
   # elif code block
+elif [[ $var1 =~ "str" ]] # if substring part of string
+then
+  # elif code block
 else
   # else code block
 fi
