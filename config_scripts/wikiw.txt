@@ -128,3 +128,7 @@ $ R
 
 :::find_all_files_with_string:::
 $ find . -iname '*.sh' -type f
+
+:::change_shell_fish:::
+$ cat /etc/shells
+$ chsh -s /usr/bin/fish

@@ -1,0 +1,7 @@
+firefox
+fish
+neofetch
+erlang
+xchainkeys (AUR)
+okular
+wine
