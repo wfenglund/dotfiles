@@ -49,16 +49,16 @@ alias nuff="cd /proj/naiss2023-23-140/william_analysis/476_Nuphar"
 alias dwnld="cd /proj/naiss2023-23-507/william_analysis/downloads"
 
 # Functions:
-roller ()
-{
-  for i in {0..1200}
-  do
-    lines=$($1 | wc -l)
-    $1 | head -n${lines}   # print `$lines` lines
-    sleep 2
-    echo -e "\e[$((${lines}+1))A"     # go `$lines + 1` up
-  done
-}
+#roller ()
+#{
+#  for i in {0..1200}
+#  do
+#    lines=$($1 | wc -l)
+#    $1 | head -n${lines}   # print `$lines` lines
+#    sleep 2
+#    echo -e "\e[$((${lines}+1))A"     # go `$lines + 1` up
+#  done
+#}
 
 statflag ()
 {
@@ -70,10 +70,10 @@ lah ()
   ls -lah $1
 }
 
-nrmupload ()
-{
-  bash ~/cloudsend.sh/cloudsend.sh "$1" "https://nrmcloud.nrm.se/s/EbanzwdawgBM3ES"
-}
+#nrmupload ()
+#{
+#  bash ~/cloudsend.sh/cloudsend.sh "$1" "https://nrmcloud.nrm.se/s/EbanzwdawgBM3ES"
+#}
 
 erlrun () # compile and run erlang script with start function
 {
@@ -107,17 +107,17 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# >>> conda initialize >>>
+## >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/willeng/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/willeng/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/willeng/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/willeng/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+#__conda_setup="$('/home/willeng/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/home/willeng/miniconda3/etc/profile.d/conda.sh" ]; then
+#        . "/home/willeng/miniconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/home/willeng/miniconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+## <<< conda initialize <<<
