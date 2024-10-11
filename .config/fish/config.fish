@@ -21,6 +21,11 @@ alias wikiw="python ~/dotfiles/config_scripts/wikiw.py"
 alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh" # access universal notes
 alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt" # create/access notes file at present location
 
+## SSH:
+alias uppmax_ssh="ssh willeng@rackham.uppmax.uu.se"
+alias dardel_ssh="ssh wenglund@dardel.pdc.kth.se"
+alias nrmdna_ssh="ssh willengl@nrmdna01.nrm.se"
+
 ## Home specific:
 alias tibia="./Games/tibia/Tibia/start-tibia-launcher.sh"
 
