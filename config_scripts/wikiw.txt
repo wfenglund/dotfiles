@@ -1,7 +1,9 @@
 :::i3_from_scratch:::
-sudo pacman -S xorg xorg-init i3-vm i3status i3blocks
-cp /etc/X11/xinit/xinitrc ~/.xinitrc
-vim .xinitrc # replace last line with "exec i3"
+$ sudo pacman -S xorg xorg-init i3-vm i3status i3blocks
+$ cp /etc/X11/xinit/xinitrc ~/.xinitrc
+$ vim .xinitrc
+replace last line with "exec i3"
+
 Could also be done with .xprofile
 
 :::fix_keyboard_layout:::
@@ -81,15 +83,15 @@ super + caps + enter # last time this worked and made regular super + enter work
 var1="string"
 if [ ${#var1} > 7 ] # if string is longer than 7 characters
 then
-  # if code block
+  [if code block]
 elif [ -f /path/to/file ] # if file exists
 then
-  # elif code block
+  [elif code block]
 elif [[ $var1 =~ "str" ]] # if substring part of string
 then
-  # elif code block
+  [elif code block]
 else
-  # else code block
+  [else code block]
 fi
 
 :::bash_arithmetic_operations_addition:::
@@ -97,9 +99,9 @@ $ var1=5
 $ echo $((var1 + 2))
 
 :::make_blast_database_and_perform_local_blast:::
-# create local blast database:
+create local blast database:
 $ makeblastdb -in fasta_file.fa -parse_seqids -dbtype nucl -out blast_database_name
-# perform local blast (edit max_target_seqs, num_threads and output format if needed):
+perform local blast (edit max_target_seqs, num_threads and output format if needed):
 $ blastn -query ./seqs_to_be_identidied.fa -db ./blast_database_name -out ./blast_results.out -outfmt "6 qseqid sseqid sstart send evalue pident sscinames" -max_target_seqs 10 -num_threads 20
 
 :::retrieve_blast_hit_sequence_from_database:::
@@ -113,7 +115,6 @@ $ GIT_AUTHOR_DATE="2099-09-09 09:09" GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE git com
 :::awk_set_delimiter_file_separator:::
 awk 'BEGIN{FS=";"};{print}'
 
-<<<<<<< HEAD
 :::find_all_files_below:::
 $ find . -iname '*.sh' -type f
 =======
