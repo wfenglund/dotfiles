@@ -133,3 +133,10 @@ $ find . -iname '*.sh' -type f
 :::change_shell_fish:::
 $ cat /etc/shells
 $ chsh -s /usr/bin/fish
+
+:::pacman_fix_conflicting_files:::
+See if file belongs to a package:
+$ pacman -Qo /path/to/file
+If file belongs to a package, uninstall package
+$ pacman -R package
+If file does not belong to any package, either remove it or rename it.
