@@ -37,6 +37,7 @@ alias bashedit="vim ~/.bashrc"
 alias erl="~/otp/bin/erl -config ~/.config/erlang/erlang.config"
 alias erlc="~/otp/bin/erlc"
 alias hrmsh="python ~/hrmsh/hrmsh.py"
+alias wikiw="python ~/dotfiles/config_scripts/wikiw.py"
 
 ## Project aliases:
 alias hdata="cd /proj/snic2021-23-233/"
