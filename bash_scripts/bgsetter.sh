@@ -1,5 +1,5 @@
 ## In order for this script to work, you also have to add the line
-# /bin/bash ~/.config_scripts/bgsetter.sh &
+# /bin/bash ~/.bash_scripts/bgsetter.sh &
 ## to your .xprofile, and the following lines to your ~/.i3/config
 # set $ws1 "1:Hartnell"
 # set $ws2 "2:Troughton"

@@ -4,4 +4,4 @@ xchainkeys &
 #xmodmap -e "keycode 66 = less greater"
 #xmodmap -e "keycode 118 = bar"
 source ~/.config_scripts/remap_keys.sh
-/bin/bash ~/.config_scripts/bgsetter.sh &
+/bin/bash ~/.bash_scripts/bgsetter.sh &
