@@ -14,8 +14,8 @@ with open(os.path.dirname(__file__) + '/wikiw.txt') as archive:
             wikiw_d[key] = wikiw_d[key] + [entry] if key in wikiw_d.keys() else [entry]
 
 if len(argv) > 1:
-    query = argv[1]
-    hits = [i for i in wikiw_d.keys() if query in i]
+    query = argv[1:]
+    hits = [i for i in wikiw_d.keys() if all(j in i for j in query)]
     for key in hits:
         print(f'{key}:')
         for line in wikiw_d[key]:
