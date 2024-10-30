@@ -153,3 +153,9 @@ $ ~/.local/bin/opentrons_simulate bead_cleanup_32_round1.py
 
 :::bash_align_comma_separated_columns_csv:::
 cat something.csv | column -s ',' -t
+
+:::bash_loop_through_command_line_arguments:::
+for args
+do
+  echo $args
+done
