@@ -18,6 +18,7 @@ nocaps # remap caps key and insert key
 alias rebar3="~/rebar3/rebar3"
 alias getbc="python ~/dotfiles/config_scripts/getbc.py"
 alias wikiw="python ~/dotfiles/config_scripts/wikiw.py ~/dotfiles/config_scripts/wikiw.txt"
+alias fishwiki="python ~/dotfiles/config_scripts/wikiw.py ~/dotfiles/config_scripts/fishwiki.txt"
 alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh" # access universal notes
 alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt" # create/access notes file at present location
 alias fqsttr="bash ~/dotfiles/bash_scripts/fqsttr.sh"

@@ -1,0 +1,44 @@
+:::Sample_species:::
+* Geography:
+
+* Max size:
+
+* Minimum tank size:
+X cm and Y liters.
+
+* Difficulty:
+Z/5
+
+* Tankmates:
+- Proven
+
+- Likely
+
+- Unlikely
+
+* Notes:
+
+:::Neocaridina_davidi_cherry_shrimp:::
+* Geography:
+Breeding variety from Taiwan, originally from Japan.
+
+* Max size:
+2.5 cm
+
+* Minimum tank size:
+15 cm and 10 liters.
+
+* Difficulty:
+2/5
+
+* Tankmates:
+- Proven
+Boraras brigittae
+
+- Likely
+Danio rerio
+
+- Unlikely
+Devario aequipinnatus (giant danio)
+
+* Notes:
