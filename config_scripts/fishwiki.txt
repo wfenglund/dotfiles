@@ -42,3 +42,27 @@ Danio rerio
 Devario aequipinnatus (giant danio)
 
 * Notes:
+
+:::Devario_aequipinnatus_giant_danio:::
+* Geography:
+India, Sri Lanka.
+
+* Max size:
+15 cm.
+
+* Minimum tank size:
+90 cm and 130 liters.
+
+* Difficulty:
+2/5.
+
+* Tankmates:
+- Proven
+
+- Likely
+
+- Unlikely
+shrimp (will get eaten).
+
+* Notes:
+Jumps, eats anything, schooling.
