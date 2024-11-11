@@ -164,3 +164,10 @@ done
 run:
 $ git reset HEAD~
 and then re-add the changes and do a new commit.
+
+:::bash_loop_through_pipe_output:::
+Loop through ls output:
+while read i
+do
+  echo $i
+done < <(ls)
