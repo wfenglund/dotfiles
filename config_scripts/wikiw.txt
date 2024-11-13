@@ -171,3 +171,8 @@ while read i
 do
   echo $i
 done < <(ls)
+
+:::rebar3_erlang_install:::
+$ git clone https://github.com/erlang/rebar3.git
+$ cd rebar3
+$ ./bootstrap
