@@ -180,3 +180,9 @@ $ ./bootstrap
 :::check_size_directories_folders:::
 Sizes of all folders in current directory:
 $ du -hs *
+
+:::bash_if_variable_exists:::
+if [[ -n $variable ]]
+then
+  do something
+fi
