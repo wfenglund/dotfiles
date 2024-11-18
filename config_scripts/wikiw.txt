@@ -181,8 +181,22 @@ $ ./bootstrap
 Sizes of all folders in current directory:
 $ du -hs *
 
-:::bash_if_variable_exists:::
+:::bash_loop_through_over_file_lines:::
+Loop over file lines:
+while read i
+do
+  echo $i
+done < ./file.txt
+
+:::bash_loop_range_of_numbers:::
+Loop over range from 1 to 5:
+for i in {1..5}
+do
+  echo $i
+done
+
+:::bash_if_variable_exists_is_set:::
 if [[ -n $variable ]]
 then
   do something
-fi
+fi 

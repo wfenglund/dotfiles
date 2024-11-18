@@ -49,6 +49,7 @@ alias porps="cd /proj/naiss2023-23-507/nobackup/tumlare"
 alias efras="cd /proj/naiss2023-23-140/william_analysis/468_2022_euphrasia"
 alias nuff="cd /proj/naiss2023-23-140/william_analysis/476_Nuphar"
 alias dwnld="cd /proj/naiss2023-23-507/william_analysis/downloads"
+alias 1dard="cd /cfs/klemming/projects/supr/naiss2023-23-140/"
 
 # Functions:
 #roller ()
