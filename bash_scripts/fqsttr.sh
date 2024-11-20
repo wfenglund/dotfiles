@@ -1,8 +1,9 @@
 get_stats() {
-  first_seq=`zcat ./$1 | head -n 2 | tail -n 1`
+  echo "- Sequence lengths:,"
+  zcat $1 | awk 'NR % 4 == 2' | awk '{print length}' | Rscript -e 'summary(scan("stdin", quiet = TRUE))'
   count_seq=`zgrep "^@" ./$1 | wc -l`
-  echo "- Read length:,"${#first_seq}
-  echo "- Sequence count:,"$count_seq
+  echo "- Sequence count:,"
+  echo "    "$count_seq
 }
 
 counter=0
