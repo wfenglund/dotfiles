@@ -5,3 +5,4 @@ erlang
 xchainkeys (AUR)
 okular
 wine
+xtrkcad (AUR)
