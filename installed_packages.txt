@@ -6,3 +6,4 @@ xchainkeys (AUR)
 okular
 wine
 xtrkcad (AUR)
+jq
