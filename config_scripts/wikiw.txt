@@ -180,3 +180,10 @@ $ ./bootstrap
 :::check_size_directories_folders:::
 Sizes of all folders in current directory:
 $ du -hs *
+
+:::bash_loop_through_over_file_lines:::
+Loop over file lines:
+while read i
+do
+  echo $i
+done < ./file.txt
