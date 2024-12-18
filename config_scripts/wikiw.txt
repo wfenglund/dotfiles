@@ -199,4 +199,7 @@ done
 if [[ -n $variable ]]
 then
   do something
-fi 
+fi
+
+:::bash_calculate_floating_point_numbers_bc_calculator:::
+echo "1.5 + 3.5" | bc -l
