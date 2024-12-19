@@ -7,3 +7,4 @@ okular
 wine
 xtrkcad (AUR)
 jq
+alacritty
