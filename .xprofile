@@ -1,8 +1,8 @@
 xchainkeys &
-#setxkbmap -option caps:ctrl_modifier
-#xmodmap -e "clear lock"
-#xmodmap -e "keycode 66 = less greater"
-#xmodmap -e "keycode 118 = bar"
-source ~/.bash_scripts/remap_keys.sh
-/bin/bash ~/.bash_scripts/bgsetter.sh &
+#setxkbmap -option caps:ctrl_modifier # old
+#xmodmap -e "clear lock" # old
+#xmodmap -e "keycode 66 = less greater" # old
+#xmodmap -e "keycode 118 = bar" # old
+source ~/.bash_scripts/remap_keys.sh # comment this out if on home
+/bin/bash ~/.bash_scripts/bgsetter.sh & # comment this out if on home
 conky &
