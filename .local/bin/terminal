@@ -1,0 +1,8 @@
+#!/bin/sh
+
+alacritty $@
+if [ $? -eq 2 ]; then
+  alacritty -q -o -f
+  alacritty $@
+fi
+
