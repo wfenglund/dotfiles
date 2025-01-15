@@ -3,6 +3,6 @@ xchainkeys &
 #xmodmap -e "clear lock" # old
 #xmodmap -e "keycode 66 = less greater" # old
 #xmodmap -e "keycode 118 = bar" # old
-source ~/.bash_scripts/remap_keys.sh # comment this out if on home
+#source ~/.bash_scripts/remap_keys.sh # old # run nocaps in terminal
 /bin/bash ~/.bash_scripts/bgsetter.sh & # comment this out if on home
 conky &
