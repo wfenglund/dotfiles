@@ -203,3 +203,10 @@ fi
 
 :::bash_calculate_floating_point_numbers_bc_calculator:::
 echo "1.5 + 3.5" | bc -l
+
+:::bash_read_two_lines_per_cycle:::
+while read line1
+do
+  read line2
+  echo "$line1 and $line2"
+done < file.txt
