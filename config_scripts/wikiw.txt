@@ -204,6 +204,9 @@ fi
 :::bash_calculate_floating_point_numbers_bc_calculator:::
 echo "1.5 + 3.5" | bc -l
 
+:::makeblastdb_make_blast_database:::
+cat sequence_file_1.fa sequence_file_2.fa | makeblastdb -parse_seqids -dbtype nucl -title name_of_db -out name_of_db
+
 :::bash_read_two_lines_per_cycle:::
 while read line1
 do
