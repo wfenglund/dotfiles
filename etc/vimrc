@@ -20,6 +20,7 @@ runtime! archlinux.vim
 set number
 set relativenumber
 set cot-=preview
+set shiftwidth=2
 
 " make Esc the shortcut to normal mode while in terminal:
 tnoremap <Esc> <C-w>N
