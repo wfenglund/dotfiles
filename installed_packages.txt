@@ -9,3 +9,4 @@ xtrkcad (AUR)
 jq
 alacritty
 python-pygame
+gnucobol (AUR)
