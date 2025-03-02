@@ -3,6 +3,7 @@
 # Path:
 set PATH $PATH $HOME/anaconda3/bin
 fish_add_path $HOME/dotfiles/bash_scripts
+fish_add_path $HOME/dotfiles/cobol_scripts
 
 # Greeting
 set -U fish_greeting
