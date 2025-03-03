@@ -15,7 +15,8 @@ module() { eval `/usr/local/Modules/$MODULE_VERSION/bin/modulecmd $modules_shell
 #############################
 
 # Path:
-#PATH=$PATH:~/folder_to_add
+PATH=$PATH:~/dotfiles/bash_scripts
+PATH=$PATH:~/dotfiles/cobol_scripts
 
 # Load CGI scripts: (git clone https://github.com/cgi-nrm/CGIBashScripts)
 source ~/CGIBashScripts/cgi_scripts.sh
