@@ -1,3 +1,5 @@
+#!/bin/bash
+
 add_note() {
 	vim .temporary_noterror_file
 	if [ -f ./.temporary_noterror_file ]
@@ -12,6 +14,18 @@ add_note() {
 	  fi
 	  rm .temporary_noterror_file
 	fi
+}
+
+restore_priority() { # add existing tasks to priority list if they are not on it
+  for task_full in $task_dir/*.task
+  do
+    task_file=${task_full/*\/}
+    task_name=${task_file/'.task'/''}
+    if [ ! `grep -x $task_name $task_dir'/task_priority_list.txt'` ]
+    then
+      echo $task_name >> $task_dir'/task_priority_list.txt'
+    fi
+  done
 }
 
 display_help() {
@@ -85,6 +99,7 @@ fi
 
 if [ $priority == 'true' ] # if priority list is prompted
 then
+  restore_priority # restore priority list
   counter=1
   while read task_entry
   do
