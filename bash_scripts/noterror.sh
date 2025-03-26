@@ -41,6 +41,11 @@ task_dir=$HOME'/.noterror_tasks'
 mkdir -p $task_dir
 
 current_task='none'
+if [[ ! $BASH_ARGV == \-* ]] # if a task name given after flags
+then
+  current_task=$BASH_ARGV
+fi
+
 edit_task='false'
 new_note='false'
 priority='false'
