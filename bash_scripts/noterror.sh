@@ -29,19 +29,20 @@ restore_priority() { # add existing tasks to priority list if they are not on it
 }
 
 display_help() {
-  echo "-t [task name or priority number] : specify task, add any combination of e, n, p, g, v between dash and t"
-  echo "  e : edit task or priority list (-et or -ep)"
-  echo "  n : new note"
-  echo "  p : view priority list, add e to edit"
-  echo "  g : go to the task path"
-  echo "  v : verbose"
+  echo "noterror.sh -[enpgv] [task name or priority number]"
+  echo ""
+  echo "-e : edit task or priority list (-e [task] or -ep)"
+  echo "-n : new note"
+  echo "-p : view priority list, add e to edit"
+  echo "-g : go to the task path"
+  echo "-v : verbose"
 }
 
 task_dir=$HOME'/.noterror_tasks'
 mkdir -p $task_dir
 
 current_task='none'
-if [[ ! $BASH_ARGV == \-* ]] # if a task name given after flags
+if [[ ! $BASH_ARGV == -* ]] # if a task name given after flags
 then
   current_task=$BASH_ARGV
 fi
