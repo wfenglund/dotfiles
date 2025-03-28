@@ -5,6 +5,7 @@ add_note() {
 	if [ -f ./.temporary_noterror_file ]
 	then
 	  echo "" >> $task_dir'/'$1'.task'
+	  echo '## '`date`':' >> $task_dir'/'$1'.task'
 	  cat .temporary_noterror_file >> $task_dir'/'$1'.task'
 	  if [ $2 == 'true' ] # if verbose option
 	  then
