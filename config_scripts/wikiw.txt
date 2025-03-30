@@ -213,3 +213,7 @@ do
   read line2
   echo "$line1 and $line2"
 done < file.txt
+
+:::stop_i3_auto_lock_timer:::
+Comment out:
+exec --no-startup-id xautolock -time 10 -locker blurlock
