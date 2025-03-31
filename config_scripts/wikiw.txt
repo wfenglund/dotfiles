@@ -217,3 +217,9 @@ done < file.txt
 :::stop_i3_auto_lock_timer:::
 Comment out:
 exec --no-startup-id xautolock -time 10 -locker blurlock
+
+:::compare_two_floating_points_bash_bc:::
+if (( $(echo "$num1 > $num2" | bc -l) ))
+then
+  echo $num1" is larger than "$num2
+fi
