@@ -223,3 +223,6 @@ if (( $(echo "$num1 > $num2" | bc -l) ))
 then
   echo $num1" is larger than "$num2
 fi
+
+:::display_show_connected_discs_usbs:::
+lsblk --fs
