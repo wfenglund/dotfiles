@@ -1,19 +1,30 @@
 #!/bin/bash
 
-add_note() {
-	vim .temporary_noterror_file
-	if [ -f ./.temporary_noterror_file ]
+add_note() { # only works if user can write in cur dir
+	vim .temporary_noterror_note
+	if [ -f ./.temporary_noterror_note ]
 	then
-	  echo "" >> $task_dir'/'$1'.task'
-	  echo '## '`date`':' >> $task_dir'/'$1'.task'
-	  cat .temporary_noterror_file >> $task_dir'/'$1'.task'
-	  if [ $2 == 'true' ] # if verbose option
+	  note_title=`awk '/^# Notes:$/{ print NR }' $task_dir'/'$1'.task'`
+	  note_start=`echo "$note_title + 1" | bc`
+	  head -n $note_title $task_dir'/'$1'.task' > .temporary_noterror_task
+	  echo "" >> .temporary_noterror_task
+	  echo '## '`date`':' >> .temporary_noterror_task
+	  cat .temporary_noterror_note >> .temporary_noterror_task
+          tail -n +$note_start $task_dir'/'$1'.task' >> .temporary_noterror_task
+	  if [[ `cat .temporary_noterror_task | wc -l` -gt `cat $task_dir'/'$1'.task' | wc -l` ]]
 	  then
-	    echo "Adding note:"
-	    echo ""
-	    cat .temporary_noterror_file
+	    cat .temporary_noterror_task > $task_dir'/'$1'.task'
+	    rm .temporary_noterror_task
+	    if [ $2 == 'true' ] # if verbose option
+	    then
+	      echo "Adding note:"
+	      echo ""
+	      cat .temporary_noterror_note
+	    fi
+	  else
+	    echo "Error. Is the formatting of the task correct?"
 	  fi
-	  rm .temporary_noterror_file
+	  rm .temporary_noterror_note
 	fi
 }
 
