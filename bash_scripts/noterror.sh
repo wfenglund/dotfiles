@@ -47,6 +47,7 @@ display_help() {
   echo "-n : new note"
   echo "-p : view priority list, add e to edit"
   echo "-g : go to the task path"
+  echo "-c : cat (print) the full task document"
   echo "-v : verbose"
 }
 
@@ -63,10 +64,11 @@ edit_task='false'
 new_note='false'
 priority='false'
 go_to_path='false'
+cat_task='false'
 verbose='false'
 show_help='false'
 
-while getopts 't:enpgvh' flag # task (required, created if nonexistent), edit task, new note, priority list, verbose
+while getopts 't:enpgcvh' flag # task (required, created if nonexistent), edit task, new note, priority list, verbose
 do
   case "${flag}" in
     t) current_task="${OPTARG}" ;;
@@ -74,6 +76,7 @@ do
     n) new_note='true' ;;
     p) priority='true' ;;
     g) go_to_path='true' ;;
+    c) cat_task='true' ;;
     v) verbose='true' ;;
     h) show_help='true' ;;
   esac
@@ -109,6 +112,11 @@ then
     echo "" >> $task_dir'/'$current_task'.task'
     echo "# Notes:" >> $task_dir'/'$current_task'.task'
     echo $current_task >> $task_dir'/task_priority_list.txt'
+  fi
+  if [[ $cat_task == 'true' ]]
+  then
+    echo ''
+    cat $task_dir'/'$current_task'.task'
   fi
 # else
 #   echo "No task was given."
