@@ -49,6 +49,7 @@ display_help() {
   echo "-g : go to the task path"
   echo "-c : cat (print) the full task document"
   echo "-v : verbose"
+  echo "-h : display this help info"
 }
 
 task_dir=$HOME'/.noterror_tasks'
