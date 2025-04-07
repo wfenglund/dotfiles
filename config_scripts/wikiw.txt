@@ -226,3 +226,10 @@ fi
 
 :::display_show_connected_discs_usbs:::
 lsblk --fs
+
+:::bash_replace_all_globally_in_string:::
+$ var1='a b c d e f'
+$ echo ${var1/' '/'_'}
+a_b c d e f
+$ echo ${var1//' '/'_'}
+a_b_c_d_e_f
