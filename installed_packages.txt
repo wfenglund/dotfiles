@@ -11,3 +11,4 @@ alacritty
 python-pygame
 gnucobol (AUR)
 ktorrent
+minecraft-launcher (AUR)
