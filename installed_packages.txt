@@ -12,3 +12,4 @@ python-pygame
 gnucobol (AUR)
 ktorrent
 minecraft-launcher (AUR)
+python-biopython (AUR)
