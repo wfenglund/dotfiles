@@ -23,6 +23,7 @@ alias wikiwfish="python ~/dotfiles/config_scripts/wikiw.py ~/dotfiles/config_scr
 alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh" # access universal notes
 alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt" # create/access notes file at present location
 alias fqsttr="bash ~/dotfiles/bash_scripts/fqsttr.sh"
+alias alimatrix="python ~/dotfiles/python_scripts/alimatrix.py"
 
 ## SSH:
 alias uppmax_ssh="ssh willeng@rackham.uppmax.uu.se"
