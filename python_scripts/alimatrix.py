@@ -3,9 +3,10 @@
 import sys
 import subprocess
 import os
+import curses
 
 # Functions:
-def load_fasta_into_dict(fasta_object): # can not handle multiple line sequences
+def load_fasta_into_dict(fasta_object): # can not handle multiple line sequences, or can it?
     alignment_dict = {}
     counter = 1
     for line in fasta_object:
@@ -33,7 +34,7 @@ def print_fasta_dict(fasta_dict1, short_names = False, display_offset = 0, snp_o
     if short_names:
         indexing = 10
     else:
-        indexing = max_char
+        indexing = max_char - 1
     print_width = os.get_terminal_size()[0] - indexing - 3
     position_list = []
     for h in fasta_dict.keys():
@@ -80,40 +81,112 @@ fasta_file = sys.argv[1]
 # Load fasta file:
 # seq_dict = {'>seq1':'AAAAATAGTCAAAAAT', '>seq2':'TTTTTTAAAAATAGTC'}
 # with open('test_sequences.fa') as input_fasta:
-with open(fasta_file) as input_fasta:
-    seq_dict = load_fasta_into_dict(input_fasta)
+# with open(fasta_file) as input_fasta:
+#     seq_dict = load_fasta_into_dict(input_fasta)
 
 # Display alignment and take input:
-short_names = False
-snp_only = False
-offset = 0
-print_fasta_dict(seq_dict, short_names)
-while True:
-    user_input = input('\nInput: ')
-    print()
-    if user_input == 'q':
-        break
-    elif user_input == 's': # shorten or unshorten names
-        if short_names:
-            short_names = False
-        else:
-            short_names = True
-    elif user_input == 'snp':
-        if snp_only:
-            snp_only = False
-        else:
-            snp_only = True
-    elif user_input == 'r': # move along alignment to the right
-        offset = offset + 50
-    elif user_input == 'l': # move along alignment to the right
-        offset = offset - 50
-    elif user_input == 'a':
-        seq_dict = align_fasta_dict(seq_dict)
-    elif user_input.startswith('>'):
-        seq_dict[user_input.split()[0]] = user_input.split()[1]
-    elif user_input.endswith('.fa') or user_input.endswith('.fasta'):
-        with open(user_input, 'w') as output_fasta:
-            for i in seq_dict.keys():
-                output_fasta.write(i + '\n')
-                output_fasta.write(seq_dict[i] + '\n')
-    print_fasta_dict(seq_dict, short_names, offset, snp_only)
+# short_names = False
+# snp_only = False
+# offset = 0
+# print_fasta_dict(seq_dict, short_names)
+# while True:
+#     user_input = input('\nInput: ')
+#     print()
+#     if user_input == 'q':
+#         break
+#     elif user_input == 's': # shorten or unshorten names
+#         if short_names:
+#             short_names = False
+#         else:
+#             short_names = True
+#     elif user_input == 'snp':
+#         if snp_only:
+#             snp_only = False
+#         else:
+#             snp_only = True
+#     elif user_input == 'r': # move along alignment to the right
+#         offset = offset + 50
+#     elif user_input == 'l': # move along alignment to the right
+#         offset = offset - 50
+#     elif user_input == 'a':
+#         seq_dict = align_fasta_dict(seq_dict)
+#     elif user_input.startswith('>'):
+#         seq_dict[user_input.split()[0]] = user_input.split()[1]
+#     elif user_input.endswith('.fa') or user_input.endswith('.fasta'):
+#         with open(user_input, 'w') as output_fasta:
+#             for i in seq_dict.keys():
+#                 output_fasta.write(i + '\n')
+#                 output_fasta.write(seq_dict[i] + '\n')
+#     print_fasta_dict(seq_dict, short_names, offset, snp_only)
+
+def print_fasta_dict2(app_screen, fasta_dict1, short_names = False, display_offset = 0, snp_only = False):
+    fasta_dict = fasta_dict1.copy()
+    max_char = get_longest(fasta_dict1.keys())
+    max_seql = get_longest(fasta_dict1.values())
+    indexing = 10 if short_names else  max_char - 1
+    print_width = os.get_terminal_size()[0] - indexing - 3
+    position_list = []
+    for h in fasta_dict.keys(): # for every seqeuence
+        fasta_dict[h] = fasta_dict[h][display_offset:print_width + display_offset] # shorten it to print width
+        if len(fasta_dict[h]) < print_width: # test
+            fasta_dict[h] = fasta_dict[h] + ('-' * (print_width - len(fasta_dict[h]))) # extend to print width if shorter
+    for i in range(0, print_width): # for the length of the sequence
+        base_holder = ''
+        for j in fasta_dict.keys(): # for every base in that position
+            if base_holder == '':
+                base_holder = fasta_dict[j][i]
+            else:
+                if base_holder != fasta_dict[j][i]:
+                    position_list = position_list + [i] # record if sequences bases differ in this position
+                    break
+    for i in fasta_dict.keys():
+        display_name = i + (' ' * (max_char - len(i)))
+        display_name = display_name.replace('>', '', 1)
+        app_screen.addstr(display_name[:indexing] + ' : ')
+        counter = 0
+#         for nucleotide in fasta_dict[i][display_offset:print_width + display_offset]:
+        for nucleotide in fasta_dict[i]:
+            if counter in position_list: # if position is a snp
+                app_screen.addstr(str(nucleotide), curses.color_pair(1)) # make snp red
+            else:
+                app_screen.addstr(str(nucleotide))
+            counter = counter + 1
+    app_screen.addstr(f'\nShowing bases {1 + display_offset}-{print_width + display_offset} out of {max_seql}')
+
+def start_application(app_screen):
+    curses.use_default_colors()
+    for i in range(0, curses.COLORS):
+        curses.init_pair(i, i, -1);
+    with open(fasta_file) as input_fasta: # load fasta file
+        seq_dict = load_fasta_into_dict(input_fasta)
+    short_names = False
+    offset = 0
+    snp_only = False
+    while True:
+        print_fasta_dict2(app_screen, seq_dict, short_names, offset, snp_only)
+        character = app_screen.getch()
+        app_screen.addstr(str(character))
+        if character == 113: # if press q
+            break
+        elif character == 115: # if press s
+            if short_names:
+                short_names = False
+            else:
+                short_names = True
+        elif character == 99: # if press c # not working
+            if snp_only:
+                snp_only = False
+            else:
+                snp_only = True
+        elif character == 261: # if press right arrow
+            offset = offset + 50
+        elif character == 260: # if press left arrow
+            if (offset - 50) >= 0:
+                offset = offset - 50
+            else:
+                offset = 0
+        elif character == 97: # if press a
+            seq_dict = align_fasta_dict(seq_dict)
+        app_screen.erase()
+
+curses.wrapper(start_application)
