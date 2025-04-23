@@ -12,4 +12,5 @@ python-pygame
 gnucobol (AUR)
 ktorrent
 minecraft-launcher (AUR)
-python-biopython (AUR)
+python-biopython (AUR) # not used so far
+clustal-omega (AUR)
