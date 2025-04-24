@@ -4,6 +4,8 @@ import sys
 import subprocess
 import os
 import curses
+import curses.textpad
+import random
 
 # Functions:
 def load_fasta_into_dict(fasta_object): # can not handle multiple line sequences, or can it?
@@ -153,6 +155,32 @@ def print_fasta_dict2(app_screen, fasta_dict1, short_names = False, display_offs
             counter = counter + 1
     app_screen.addstr(f'\nShowing bases {1 + display_offset}-{print_width + display_offset} out of {max_seql}')
 
+def enter_fasta_text(stdscr, seq_dict):
+    term_w, term_h = os.get_terminal_size()
+    stdscr.addstr(0, 0, "Enter fasta sequence: (hit Ctrl-g to submit)")
+    editwin = curses.newwin(term_h - 3, term_w - 4, 2, 2)
+    curses.textpad.rectangle(stdscr, 1, 1, term_h - 1, term_w - 2)
+    stdscr.refresh()
+    tbox = curses.textpad.Textbox(editwin)
+    tbox.edit() # edit Textbox
+    fasta_text = tbox.gather() # retrieve text
+    name_flag = 0
+    for line in fasta_text.split('\n'):
+        if(line.startswith('>')):
+            new_name = line.strip()
+            seq_dict[new_name] = ''
+            name_flag = 1
+        elif name_flag == 0:
+            while True:
+                new_name = '>random_seq' + str(random.randint(1, 9999))
+                if new_name not in seq_dict.keys():
+                    seq_dict[new_name] = line.strip()
+                    break
+            name_flag = 1
+        else:
+            seq_dict[new_name] = seq_dict[new_name] + line.strip()
+    return seq_dict
+
 def start_application(app_screen):
     curses.use_default_colors()
     for i in range(0, curses.COLORS):
@@ -185,8 +213,10 @@ def start_application(app_screen):
                 offset = offset - 50
             else:
                 offset = 0
-        elif character == 97: # if press a
+        elif character == 97: # if press a, align sequences
             seq_dict = align_fasta_dict(seq_dict)
+        elif character == 103: # if press g, enter fasta
+            enter_fasta_text(app_screen, seq_dict)
         app_screen.erase()
 
 curses.wrapper(start_application)
