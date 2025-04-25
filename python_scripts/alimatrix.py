@@ -1,5 +1,4 @@
-# import Bio.SeqIO # import Biopython
-# import Bio.Align # import Biopython
+# Libraries:
 import sys
 import subprocess
 import os
@@ -8,7 +7,7 @@ import curses.textpad
 import random
 
 # Functions:
-def load_fasta_into_dict(fasta_object): # can not handle multiple line sequences, or can it?
+def load_fasta_into_dict(fasta_object): # takes a fasta file as input and returns a dictionary of sequences
     alignment_dict = {}
     counter = 1
     for line in fasta_object:
@@ -23,13 +22,13 @@ def load_fasta_into_dict(fasta_object): # can not handle multiple line sequences
 #             counter = 1
     return alignment_dict
 
-def get_longest(in_list):
+def get_longest(in_list): # takes a list and returns the length of the longest item
     char_counts = [len(i) for i in in_list]
     char_counts.sort()
     char_counts.reverse()
     return char_counts[0]
 
-def print_fasta_dict(fasta_dict1, short_names = False, display_offset = 0, snp_only = False):
+def print_fasta_dict(fasta_dict1, short_names = False, display_offset = 0, snp_only = False): # obsolete fasta print function
     fasta_dict = fasta_dict1.copy()
     max_char = get_longest(fasta_dict1.keys())
     max_seql = get_longest(fasta_dict1.values())
@@ -67,7 +66,7 @@ def print_fasta_dict(fasta_dict1, short_names = False, display_offset = 0, snp_o
         print(f'{display_name[:indexing]} : {fasta_dict[i]}')
     print(f'\nShowing bases {1 + display_offset}-{print_width + display_offset} out of {max_seql}')
 
-def align_fasta_dict(fasta_dict):
+def align_fasta_dict(fasta_dict): # function that takes a dictionary of sequences and returns it aligned
     seq_string = ''
     for i in fasta_dict.keys():
         seq_string = seq_string + i + '\n' + fasta_dict[i] + '\n'
@@ -121,7 +120,7 @@ fasta_file = sys.argv[1]
 #                 output_fasta.write(seq_dict[i] + '\n')
 #     print_fasta_dict(seq_dict, short_names, offset, snp_only)
 
-def print_fasta_dict2(app_screen, fasta_dict1, short_names = False, display_offset = 0, snp_only = False):
+def print_fasta_dict2(app_screen, fasta_dict1, short_names = False, display_offset = 0, snp_only = False): # function that prints an alignment using curses
     fasta_dict = fasta_dict1.copy()
     max_char = get_longest(fasta_dict1.keys())
     max_seql = get_longest(fasta_dict1.values())
@@ -155,7 +154,7 @@ def print_fasta_dict2(app_screen, fasta_dict1, short_names = False, display_offs
             counter = counter + 1
     app_screen.addstr(f'\nShowing bases {1 + display_offset}-{print_width + display_offset} out of {max_seql}')
 
-def enter_fasta_text(stdscr, seq_dict):
+def enter_fasta_text(stdscr, seq_dict): # function that opens a text window and parses entered fasta sequences
     term_w, term_h = os.get_terminal_size()
     stdscr.addstr(0, 0, "Enter fasta sequence: (hit Ctrl-g to submit)")
     editwin = curses.newwin(term_h - 3, term_w - 4, 2, 2)
@@ -179,9 +178,9 @@ def enter_fasta_text(stdscr, seq_dict):
             name_flag = 1
         else:
             seq_dict[new_name] = seq_dict[new_name] + line.strip()
-    return seq_dict
+    return seq_dic
 
-def start_application(app_screen):
+def start_application(app_screen): # main program that takes commands and displays the alignment
     curses.use_default_colors()
     for i in range(0, curses.COLORS):
         curses.init_pair(i, i, -1);
@@ -194,29 +193,29 @@ def start_application(app_screen):
         print_fasta_dict2(app_screen, seq_dict, short_names, offset, snp_only)
         character = app_screen.getch()
         app_screen.addstr(str(character))
-        if character == 113: # if press q
+        if character == 113: # if press q, quit
             break
-        elif character == 115: # if press s
+        elif character == 115: # if press s, shorten names of sequences
             if short_names:
                 short_names = False
             else:
                 short_names = True
-        elif character == 99: # if press c # not working
+        elif character == 99: # if press c, only show SNPs # not working
             if snp_only:
                 snp_only = False
             else:
                 snp_only = True
-        elif character == 261: # if press right arrow
+        elif character == 261: # if press right arrow, navigate alignment to the left
             offset = offset + 50
-        elif character == 260: # if press left arrow
+        elif character == 260: # if press left arrow, navigate alignment to the left
             if (offset - 50) >= 0:
                 offset = offset - 50
             else:
                 offset = 0
         elif character == 97: # if press a, align sequences
             seq_dict = align_fasta_dict(seq_dict)
-        elif character == 103: # if press g, enter fasta
+        elif character == 103: # if press g, enter fasta sequence to add
             enter_fasta_text(app_screen, seq_dict)
         app_screen.erase()
 
-curses.wrapper(start_application)
+curses.wrapper(start_application) # run application
