@@ -28,44 +28,6 @@ def get_longest(in_list): # takes a list and returns the length of the longest i
     char_counts.reverse()
     return char_counts[0]
 
-def print_fasta_dict(fasta_dict1, short_names = False, display_offset = 0, snp_only = False): # obsolete fasta print function
-    fasta_dict = fasta_dict1.copy()
-    max_char = get_longest(fasta_dict1.keys())
-    max_seql = get_longest(fasta_dict1.values())
-    if short_names:
-        indexing = 10
-    else:
-        indexing = max_char - 1
-    print_width = os.get_terminal_size()[0] - indexing - 3
-    position_list = []
-    for h in fasta_dict.keys():
-        if len(fasta_dict[h]) < max_seql:
-            fasta_dict[h] = fasta_dict[h] + ('-' * (max_seql - len(fasta_dict[h])))
-    for i in range(0, max_seql):
-        base_holder = ''
-        for j in fasta_dict.keys():
-            if base_holder == '':
-                base_holder = fasta_dict[j][i]
-            else:
-                if base_holder != fasta_dict[j][i]:
-                    position_list = position_list + [i]
-                    break
-    for k in fasta_dict.keys():
-        new_seq = ''
-        old_pos = display_offset
-        offset_addition = 0
-        if snp_only:
-            new_seq_list = ['\033[91m' + fasta_dict[k][i] + '\033[0m' for i in range(0, len(fasta_dict[k])) if i in position_list]
-        else:
-            new_seq_list = ['\033[91m' + fasta_dict[k][i] + '\033[0m' if i in position_list else fasta_dict[k][i] for i in range(0, len(fasta_dict[k]))]
-        fasta_dict[k] = ''.join(new_seq_list[display_offset:print_width + display_offset])
-    
-    for i in fasta_dict.keys():
-        display_name = i + (' ' * (max_char - len(i)))
-        display_name = display_name.replace('>', '', 1)
-        print(f'{display_name[:indexing]} : {fasta_dict[i]}')
-    print(f'\nShowing bases {1 + display_offset}-{print_width + display_offset} out of {max_seql}')
-
 def align_fasta_dict(fasta_dict): # function that takes a dictionary of sequences and returns it aligned
     seq_string = ''
     for i in fasta_dict.keys():
@@ -76,51 +38,7 @@ def align_fasta_dict(fasta_dict): # function that takes a dictionary of sequence
     aligned_dict = load_fasta_into_dict(test.stdout.decode().split('\n'))
     return aligned_dict
 
-# Input:
-fasta_file = sys.argv[1]
-
-# Load fasta file:
-# seq_dict = {'>seq1':'AAAAATAGTCAAAAAT', '>seq2':'TTTTTTAAAAATAGTC'}
-# with open('test_sequences.fa') as input_fasta:
-# with open(fasta_file) as input_fasta:
-#     seq_dict = load_fasta_into_dict(input_fasta)
-
-# Display alignment and take input:
-# short_names = False
-# snp_only = False
-# offset = 0
-# print_fasta_dict(seq_dict, short_names)
-# while True:
-#     user_input = input('\nInput: ')
-#     print()
-#     if user_input == 'q':
-#         break
-#     elif user_input == 's': # shorten or unshorten names
-#         if short_names:
-#             short_names = False
-#         else:
-#             short_names = True
-#     elif user_input == 'snp':
-#         if snp_only:
-#             snp_only = False
-#         else:
-#             snp_only = True
-#     elif user_input == 'r': # move along alignment to the right
-#         offset = offset + 50
-#     elif user_input == 'l': # move along alignment to the right
-#         offset = offset - 50
-#     elif user_input == 'a':
-#         seq_dict = align_fasta_dict(seq_dict)
-#     elif user_input.startswith('>'):
-#         seq_dict[user_input.split()[0]] = user_input.split()[1]
-#     elif user_input.endswith('.fa') or user_input.endswith('.fasta'):
-#         with open(user_input, 'w') as output_fasta:
-#             for i in seq_dict.keys():
-#                 output_fasta.write(i + '\n')
-#                 output_fasta.write(seq_dict[i] + '\n')
-#     print_fasta_dict(seq_dict, short_names, offset, snp_only)
-
-def print_fasta_dict2(app_screen, fasta_dict1, short_names = False, display_offset = 0, snp_only = False): # function that prints an alignment using curses
+def print_fasta_dict(app_screen, fasta_dict1, short_names = False, display_offset = 0, snp_only = False): # function that prints an alignment using curses
     fasta_dict = fasta_dict1.copy()
     max_char = get_longest(fasta_dict1.keys())
     max_seql = get_longest(fasta_dict1.values())
@@ -178,7 +96,7 @@ def enter_fasta_text(stdscr, seq_dict): # function that opens a text window and 
             name_flag = 1
         else:
             seq_dict[new_name] = seq_dict[new_name] + line.strip()
-    return seq_dic
+    return seq_dict
 
 def start_application(app_screen): # main program that takes commands and displays the alignment
     curses.use_default_colors()
@@ -190,7 +108,7 @@ def start_application(app_screen): # main program that takes commands and displa
     offset = 0
     snp_only = False
     while True:
-        print_fasta_dict2(app_screen, seq_dict, short_names, offset, snp_only)
+        print_fasta_dict(app_screen, seq_dict, short_names, offset, snp_only)
         character = app_screen.getch()
         app_screen.addstr(str(character))
         if character == 113: # if press q, quit
@@ -216,6 +134,9 @@ def start_application(app_screen): # main program that takes commands and displa
             seq_dict = align_fasta_dict(seq_dict)
         elif character == 103: # if press g, enter fasta sequence to add
             enter_fasta_text(app_screen, seq_dict)
+        elif character == 62: # if press >, write to file # not working
+            pass
         app_screen.erase()
 
+fasta_file = sys.argv[1] # get input file
 curses.wrapper(start_application) # run application
