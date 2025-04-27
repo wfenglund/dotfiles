@@ -46,9 +46,9 @@ def print_fasta_dict(app_screen, fasta_dict1, short_names = False, display_offse
     print_width = os.get_terminal_size()[0] - indexing - 3
     position_list = []
     for h in fasta_dict.keys(): # for every seqeuence
-        fasta_dict[h] = fasta_dict[h][display_offset:print_width + display_offset] # shorten it to print width
+        fasta_dict[h] = fasta_dict[h][display_offset:print_width + display_offset] # shorten it to print_width
         if len(fasta_dict[h]) < print_width: # test
-            fasta_dict[h] = fasta_dict[h] + ('-' * (print_width - len(fasta_dict[h]))) # extend to print width if shorter
+            fasta_dict[h] = fasta_dict[h] + ('-' * (print_width - len(fasta_dict[h]))) # extend to print_width if shorter
     for i in range(0, print_width): # for the length of the sequence
         base_holder = ''
         for j in fasta_dict.keys(): # for every base in that position
@@ -98,6 +98,29 @@ def enter_fasta_text(stdscr, seq_dict): # function that opens a text window and 
             seq_dict[new_name] = seq_dict[new_name] + line.strip()
     return seq_dict
 
+def return_on_enter(x):
+    if x == 10:
+        return 7
+    else:
+        return x
+
+def write_to_file(app_screen, seq_dict):
+    term_w, term_h = os.get_terminal_size()
+    prompt_text = 'Enter fasta file to create (or overwrite): '
+    app_screen.addstr(term_h - 1, 0, prompt_text)
+    editwin = curses.newwin(1, term_w - len(prompt_text), term_h - 1, len(prompt_text))
+    app_screen.refresh()
+    tbox = curses.textpad.Textbox(editwin)
+    tbox.edit(return_on_enter) # edit Textbox
+    fasta_name = tbox.gather() # retrieve text
+    if fasta_name.strip().endswith('.fa') or fasta_name.strip().endswith('.fasta'):
+        with open(fasta_name.strip(), 'w') as output_fasta:
+            for i in seq_dict.keys():
+                output_fasta.write(i + '\n')
+                output_fasta.write(seq_dict[i] + '\n')
+    else:
+        app_screen.addstr(f'ERROR: File name does not end with .fa or .fasta')
+
 def start_application(app_screen): # main program that takes commands and displays the alignment
     curses.use_default_colors()
     for i in range(0, curses.COLORS):
@@ -135,7 +158,7 @@ def start_application(app_screen): # main program that takes commands and displa
         elif character == 103: # if press g, enter fasta sequence to add
             enter_fasta_text(app_screen, seq_dict)
         elif character == 62: # if press >, write to file # not working
-            pass
+            write_to_file(app_screen, seq_dict)
         app_screen.erase()
 
 fasta_file = sys.argv[1] # get input file
