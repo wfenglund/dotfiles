@@ -121,6 +121,27 @@ def write_to_file(app_screen, seq_dict):
     else:
         app_screen.addstr(f'ERROR: File name does not end with .fa or .fasta')
 
+def remove_sequence(app_screen, seq_dict):
+    seq_ids = {}
+    counter = 0
+    for seq_name in seq_dict.keys():
+        seq_ids[counter] = seq_name
+        app_screen.addstr(counter, 0, str(counter) + ': ')
+        counter = counter + 1
+    term_w, term_h = os.get_terminal_size()
+    prompt_text = 'Specify sequence to remove: '
+    app_screen.addstr(term_h - 1, 0, prompt_text)
+    editwin = curses.newwin(1, term_w - len(prompt_text), term_h - 1, len(prompt_text))
+    app_screen.refresh()
+    tbox = curses.textpad.Textbox(editwin)
+    tbox.edit(return_on_enter) # edit Textbox
+    sequence_id = tbox.gather() # retrieve text
+    if int(sequence_id) in seq_ids.keys():
+        seq_dict.pop(seq_ids[int(sequence_id)])
+    else:
+        app_screen.addstr(f'ERROR: Not a valid sequence identifier')
+    return seq_dict
+
 def start_application(app_screen): # main program that takes commands and displays the alignment
     curses.use_default_colors()
     for i in range(0, curses.COLORS):
@@ -157,8 +178,10 @@ def start_application(app_screen): # main program that takes commands and displa
             seq_dict = align_fasta_dict(seq_dict)
         elif character == 103: # if press g, enter fasta sequence to add
             enter_fasta_text(app_screen, seq_dict)
-        elif character == 62: # if press >, write to file # not working
+        elif character == 62: # if press >, write to file
             write_to_file(app_screen, seq_dict)
+        elif character == 114: # if press r, remove specified sequence
+            seq_dict = remove_sequence(app_screen, seq_dict)
         app_screen.erase()
 
 fasta_file = sys.argv[1] # get input file
