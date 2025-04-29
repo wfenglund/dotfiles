@@ -175,8 +175,9 @@ def start_application(app_screen): # main program that takes commands and displa
             enter_fasta_text(app_screen, seq_dict)
         elif character == 62: # if press >, write to file
             write_to_file(app_screen, seq_dict)
-        elif character == 114: # if press r, remove specified sequence
+        elif character == 82: # if press R, remove specified sequence
             seq_dict = remove_sequence(app_screen, seq_dict)
+
         app_screen.erase()
 
 fasta_file = sys.argv[1] # get input file
