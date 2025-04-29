@@ -104,15 +104,17 @@ def return_on_enter(x):
     else:
         return x
 
-def write_to_file(app_screen, seq_dict):
+def make_text_prompt(app_screen, seq_dict, prompt_text):
     term_w, term_h = os.get_terminal_size()
-    prompt_text = 'Enter fasta file to create (or overwrite): '
     app_screen.addstr(term_h - 1, 0, prompt_text)
     editwin = curses.newwin(1, term_w - len(prompt_text), term_h - 1, len(prompt_text))
     app_screen.refresh()
     tbox = curses.textpad.Textbox(editwin)
-    tbox.edit(return_on_enter) # edit Textbox
-    fasta_name = tbox.gather() # retrieve text
+    tbox.edit(return_on_enter) # enter text
+    return tbox.gather() # return entered text
+
+def write_to_file(app_screen, seq_dict):
+    fasta_name = make_text_prompt(app_screen, seq_dict, 'Enter fasta file to create (or overwrite): ')
     if fasta_name.strip().endswith('.fa') or fasta_name.strip().endswith('.fasta'):
         with open(fasta_name.strip(), 'w') as output_fasta:
             for i in seq_dict.keys():
@@ -128,14 +130,7 @@ def remove_sequence(app_screen, seq_dict):
         seq_ids[counter] = seq_name
         app_screen.addstr(counter, 0, str(counter) + ': ')
         counter = counter + 1
-    term_w, term_h = os.get_terminal_size()
-    prompt_text = 'Specify sequence to remove: '
-    app_screen.addstr(term_h - 1, 0, prompt_text)
-    editwin = curses.newwin(1, term_w - len(prompt_text), term_h - 1, len(prompt_text))
-    app_screen.refresh()
-    tbox = curses.textpad.Textbox(editwin)
-    tbox.edit(return_on_enter) # edit Textbox
-    sequence_id = tbox.gather() # retrieve text
+    sequence_id = make_text_prompt(app_screen, seq_dict, 'Specify sequence to remove: ')
     if int(sequence_id) in seq_ids.keys():
         seq_dict.pop(seq_ids[int(sequence_id)])
     else:
