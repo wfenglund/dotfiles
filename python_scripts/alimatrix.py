@@ -177,7 +177,10 @@ def start_application(app_screen): # main program that takes commands and displa
             write_to_file(app_screen, seq_dict)
         elif character == 82: # if press R, remove specified sequence
             seq_dict = remove_sequence(app_screen, seq_dict)
-
+        elif character == 88: # if press X, remove chunk of alignment # not working properly
+            start, stop = 8, 16
+            for seq_name in seq_dict.keys():
+                seq_dict[seq_name] = seq_dict[seq_name][:start] + seq_dict[seq_name][stop:]
         app_screen.erase()
 
 fasta_file = sys.argv[1] # get input file
