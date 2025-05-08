@@ -10,3 +10,4 @@ jq
 alacritty
 python-pygame
 gnucobol (AUR)
+ktorrent
