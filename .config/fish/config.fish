@@ -24,6 +24,7 @@ alias unnotate="bash ~/dotfiles/bash_scripts/unnotate.sh" # access universal not
 alias lonotate="bash ~/dotfiles/bash_scripts/unnotate.sh notes.txt" # create/access notes file at present location
 alias fqsttr="bash ~/dotfiles/bash_scripts/fqsttr.sh"
 alias alimatrix="python ~/dotfiles/python_scripts/alimatrix.py"
+alias emulicious="java -jar ~/emulicious/Emulicious.jar"
 
 ## SSH:
 alias uppmax_ssh="ssh willeng@rackham.uppmax.uu.se"
