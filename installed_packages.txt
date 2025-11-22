@@ -14,3 +14,4 @@ ktorrent
 minecraft-launcher (AUR)
 python-biopython (AUR) # not used so far
 clustal-omega (AUR)
+openssh
