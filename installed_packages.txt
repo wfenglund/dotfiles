@@ -15,3 +15,4 @@ minecraft-launcher (AUR)
 python-biopython (AUR) # not used so far
 clustal-omega (AUR)
 openssh
+rstudio-desktop-bin (AUR)
