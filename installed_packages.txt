@@ -16,3 +16,5 @@ python-biopython (AUR) # not used so far
 clustal-omega (AUR)
 openssh
 rstudio-desktop-bin (AUR)
+positron-ide-devel-bin (AUR)
+uv
