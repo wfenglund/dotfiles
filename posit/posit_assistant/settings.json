@@ -1,0 +1,14 @@
+{
+  "permission": {
+    "default": "ask",
+    "bash": "deny",
+    "fs": {
+      "allow": [
+	"${workspace}"
+      ],
+      "deny": [
+	"*"
+      ]
+    }
+  }
+} 

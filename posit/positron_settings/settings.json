@@ -1,0 +1,42 @@
+{
+  "workbench.colorTheme": "Dark 2026",
+  "files.associations": {
+    "**/.posit/ai/providers.json": "jsonc",
+    "**/.posit/ai/auth/data.json": "jsonc",
+    "**/.posit/assistant/settings.json": "jsonc",
+    "renv.lock": "json"
+  },
+  // --- Vim Extension General Settings ---
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  // --- Vim Normal Mode Shortcuts (Tab Management) ---
+  "vim.normalModeKeybindingsNonRecursive": [
+    {
+      "before": ["g", "t"],
+      "commands": ["workbench.action.nextEditor"]
+    },
+    {
+      "before": ["g", "T"],
+      "commands": ["workbench.action.previousEditor"]
+    }
+  ],
+  // --- Core Global Keybindings (Jumping & Panel Focus) ---
+  // Note: In VS Code/Positron, custom key chords can also be declared here
+  "keybindings": [
+    {
+      "key": "ctrl+shift+a",
+      "command": "workbench.view.extension.positron-assistant",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrl+h",
+      "command": "workbench.action.focusPreviousGroup",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrl+l",
+      "command": "workbench.action.focusNextGroup",
+      "when": "editorTextFocus"
+    }
+  ]
+}
