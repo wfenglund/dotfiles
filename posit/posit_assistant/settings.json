@@ -1,14 +1,7 @@
 {
+  "$schema": "https://assistant.posit.co/schemas/settings.schema.json",
   "permission": {
     "default": "ask",
-    "bash": "deny",
-    "fs": {
-      "allow": [
-	"${workspace}"
-      ],
-      "deny": [
-	"*"
-      ]
-    }
+    "bash": "deny"
   }
-} 
+}

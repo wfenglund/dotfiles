@@ -1,0 +1,26 @@
+// --- Core Global Keybindings (Jumping & Panel Focus) ---
+// Note: In VS Code/Positron, custom key chords can also be declared here
+[
+  {
+    "key": "ctrl+2",
+    "command": "workbench.action.terminal.focus",
+    "when": "positron.assistant.chatFocused"
+  },
+  {
+    //"key": "ctrl+shift+a",
+    "key": "ctrl+3",
+    //"command": "workbench.view.extension.positron-assistant",
+    "command": "posit-assistant.focusInput",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusPreviousGroup",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusNextGroup",
+    "when": "editorTextFocus"
+  }
+]
