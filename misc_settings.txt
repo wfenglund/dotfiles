@@ -1,3 +1,5 @@
 Firefox:
 * Stop firefox from hiding taskbar automatically i fullscreen mode:
 browse to 'about:config', search for 'browser.fullscreen.autohide' and change to 'false'.
+Posit:
+install Vim as an extension.
