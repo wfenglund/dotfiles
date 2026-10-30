@@ -2,6 +2,19 @@
   "assistant.enabled": true,
   "positron.assistant.enable": true,
   "workbench.colorTheme": "Dark 2026",
+  "editor.autoClosingBrackets": "never",
+  "editor.autoClosingQuotes": "never",
+  "editor.autoClosingDelete": "never",
+  "editor.autoClosingOvertype": "never",
+  "editor.suggest.insertMode": "insert",
+  // Let these shortcuts work while the terminal has focus
+  "terminal.integrated.commandsToSkipShell": [
+    "workbench.action.focusActiveEditorGroup",
+    "workbench.panel.positronConsole.focus",
+    "workbench.action.terminal.focus",
+    "posit-assistant.focusInput",
+    "workbench.view.explorer"
+  ],
   "files.associations": {
     "**/.posit/ai/providers.json": "jsonc",
     "**/.posit/ai/auth/data.json": "jsonc",

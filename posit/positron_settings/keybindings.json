@@ -1,17 +1,25 @@
-// --- Core Global Keybindings (Jumping & Panel Focus) ---
-// Note: In VS Code/Positron, custom key chords can also be declared here
+// --- Global pane focus (no "when" clause, so they work everywhere) ---
 [
   {
-    "key": "ctrl+2",
-    "command": "workbench.action.terminal.focus",
-    "when": "positron.assistant.chatFocused"
+    "key": "ctrl+1",
+    "command": "workbench.action.focusActiveEditorGroup"
   },
   {
-    //"key": "ctrl+shift+a",
+    "key": "ctrl+2",
+    "command": "workbench.panel.positronConsole.focus",
+    "args": {}
+  },
+  {
     "key": "ctrl+3",
-    //"command": "workbench.view.extension.positron-assistant",
-    "command": "posit-assistant.focusInput",
-    "when": "editorTextFocus"
+    "command": "workbench.action.terminal.focus"
+  },
+  {
+    "key": "ctrl+4",
+    "command": "posit-assistant.focusInput"
+  },
+  {
+    "key": "ctrl+5",
+    "command": "workbench.view.explorer"
   },
   {
     "key": "ctrl+h",
